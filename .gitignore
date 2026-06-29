@@ -1,0 +1,14 @@
+# Ignore backend for now
+Server/
+
+# Node modules
+**/node_modules
+
+# Environment files
+**/.env
+
+# Logs
+*.log
+
+# Vite build
+Client/dist

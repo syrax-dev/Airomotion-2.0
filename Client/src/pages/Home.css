@@ -1,0 +1,1690 @@
+/* Hero Section */
+.hero-section {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 640px;
+  background-color: var(--bg-black);
+  color: var(--text-white);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.hero-bg-simulation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-scene {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 1.5s ease, transform 1.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-scene.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Simulated Architectural Visualization Backgrounds in CSS */
+.scene-automation {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23111"/><line x1="200" y1="0" x2="200" y2="800" stroke="%23333" stroke-width="1"/><line x1="1000" y1="0" x2="1000" y2="800" stroke="%23333" stroke-width="1"/><line x1="0" y1="200" x2="1200" y2="200" stroke="%23333" stroke-width="1"/><line x1="0" y1="600" x2="1200" y2="600" stroke="%23333" stroke-width="1"/><rect x="300" y="250" width="600" height="300" rx="10" fill="none" stroke="%23ffffff" stroke-opacity="0.1" stroke-width="2"/><text x="600" y="410" fill="%23ffffff" fill-opacity="0.1" font-size="24" font-family="sans-serif" text-anchor="middle" letter-spacing="10">AUTOMATION ENVIRONMENT</text></svg>');
+}
+
+.scene-security {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%230b0b0b"/><line x1="400" y1="0" x2="400" y2="800" stroke="%23222" stroke-width="1"/><line x1="800" y1="0" x2="800" y2="800" stroke="%23222" stroke-width="1"/><circle cx="600" cy="400" r="150" fill="none" stroke="%23ffffff" stroke-opacity="0.1" stroke-width="2"/><text x="600" y="410" fill="%23ffffff" fill-opacity="0.1" font-size="24" font-family="sans-serif" text-anchor="middle" letter-spacing="10">SECURE ZONE</text></svg>');
+}
+
+.scene-energy {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23050505"/><line x1="100" y1="0" x2="1100" y2="800" stroke="%23222" stroke-width="1"/><line x1="1100" y1="0" x2="100" y2="800" stroke="%23222" stroke-width="1"/><rect x="450" y="300" width="300" height="200" fill="none" stroke="%23ffffff" stroke-opacity="0.1" stroke-width="2"/><text x="600" y="410" fill="%23ffffff" fill-opacity="0.1" font-size="24" font-family="sans-serif" text-anchor="middle" letter-spacing="10">ENERGY MANAGEMENT</text></svg>');
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 100%);
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
+
+.hero-text-block {
+  max-width: 750px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.15rem;
+}
+
+.hero-text-block .text-uppercase-badge {
+  font-size: 0.69rem;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+.hero-title {
+  font-size: clamp(3.75rem, 6.4vw, 5.9rem);
+  font-family: "Outfit", var(--font-serif);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.hero-desc {
+  font-size: 0.9rem;
+  /* text-transform: uppercase; */
+  letter-spacing: 0.25em;
+  color: var(--text-grey-light);
+  font-family: var(--font-sans);
+  max-width: 580px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* Scene indicators (premium slider controls) */
+.hero-scene-nav {
+  position: absolute;
+  bottom: 3rem;
+  right: 4rem;
+  display: flex;
+  gap: 1.5rem;
+  z-index: 4;
+}
+
+.scene-nav-btn {
+  background: none;
+  border: none;
+  color: var(--text-grey-light);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color var(--transition-fast);
+}
+
+.scene-nav-btn:hover,
+.scene-nav-btn.active {
+  color: var(--text-white);
+}
+
+.scene-nav-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--text-white);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--transition-medium);
+}
+
+.scene-nav-btn.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Infinite Marquee */
+.marquee-container {
+  background-color: var(--bg-white);
+  border-bottom: 1px solid var(--border-black);
+  overflow: hidden;
+  position: relative;
+
+  height: 42px;
+  display: flex;
+  align-items: center;
+}
+
+.marquee-content {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee 30s linear infinite;
+  width: max-content;
+}
+
+.marquee-item {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  /* text-transform: uppercase; */
+  letter-spacing: 0.02em;
+  font-weight: 400;
+  margin-right: 2.5rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.marquee-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--bg-black);
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* What We Do Section */
+.what-we-do-head {
+  max-width: 1040px;
+}
+
+.what-we-do-title {
+  margin: 0;
+  color: var(--text-black);
+  font-family: var(--font-sans);
+  font-size: clamp(2.45rem, 3.6vw, 3.35rem);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+}
+
+.what-we-do-title strong {
+  font-weight: 500;
+}
+
+.what-we-do-desc {
+  max-width: 680px;
+  margin: 22px 0 0;
+  color: var(--text-grey-dark);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.section-title {
+  font-family: var(--font-sans);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text-black);
+}
+
+.cat-grid {
+  flex-direction: column;
+  gap: clamp(40px, 6vw, 80px);
+  display: flex;
+  width: 100%;
+}
+
+.cat-card {
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  gap: clamp(32px, 5vw, 80px);
+  display: grid;
+}
+
+.cat-card:nth-child(2n) {
+  direction: rtl;
+}
+
+.cat-card:nth-child(2n)>* {
+  direction: ltr;
+}
+
+.cat-media {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background: #f5f5f5;
+  overflow: hidden;
+  position: relative;
+}
+
+.cat-media img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: transform 1.4s cubic-bezier(.22, 1, .36, 1);
+}
+
+.cat-card:hover .cat-media img {
+  transform: scale(1.05);
+}
+
+.cat-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 520px;
+}
+
+.cat-body .eyebrow {
+  margin-bottom: 1.5rem;
+}
+
+.cat-title {
+  font-family: var(--font-sans);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-black);
+  margin-bottom: 1.5rem;
+}
+
+.cat-desc {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-grey-dark);
+}
+
+.cat-list {
+  opacity: .85;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin: 32px 0 24px;
+  padding: 0;
+  border-top: 1px solid var(--border-black);
+  font-size: .92rem;
+  display: grid;
+  width: 100%;
+  list-style: none;
+}
+
+.cat-list li {
+  font-family: var(--font-sans);
+  color: var(--text-grey-dark);
+  display: flex;
+  align-items: center;
+  height: 56px;
+  line-height: 1;
+  padding: 0;
+  border-bottom: 1px solid var(--border-black);
+  white-space: nowrap;
+}
+
+.cat-link {
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  border-bottom: 0;
+  border-top: 0;
+  margin-top: 0;
+  padding-top: 20px;
+  padding-bottom: 4px;
+  font-size: .78rem;
+  font-weight: 500;
+  display: inline-block;
+  width: 100%;
+  color: var(--text-black);
+  position: relative;
+  transition: opacity 0.3s ease;
+}
+
+.cat-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 154px;
+  height: 1px;
+  background: var(--text-black);
+}
+
+.cat-link .cat-link-arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.cat-link:hover {
+  opacity: 0.7;
+}
+
+.cat-link:hover .cat-link-arrow {
+  transform: translateX(4px);
+}
+
+@media (max-width: 880px) {
+
+  .cat-card,
+  .cat-card:nth-child(2n) {
+    direction: ltr;
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .cat-list {
+    margin: 20px 0;
+  }
+}
+
+/* =============================================
+   WHY AIROMOTION SECTION - COMPLETELY ISOLATED
+   All classes prefixed with why-airomotion-
+   ============================================= */
+
+.why-airomotion-section {
+  position: relative;
+  background: #0a0a0a;
+  color: #fff;
+  padding: 140px 0;
+  border-top: none;
+  border-bottom: none;
+  width: 100%;
+  box-sizing: border-box;
+  /* Ensure section always renders with proper dimensions */
+  min-height: 600px;
+  contain: layout style;
+}
+
+.why-airomotion-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 4rem;
+  box-sizing: border-box;
+}
+
+.why-airomotion-header {
+  display: block;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 0 72px 0;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.why-airomotion-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  opacity: 1;
+  font-weight: 500;
+  display: inline-block;
+  margin: 0 0 28px 0;
+}
+
+.why-airomotion-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: #fff;
+  margin: 0 0 20px 0;
+}
+
+.why-airomotion-title em {
+  font-style: normal;
+  font-weight: 500;
+}
+
+.why-airomotion-description {
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 60ch;
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.7;
+  margin: 0;
+  font-family: var(--font-sans);
+}
+
+.why-airomotion-grid {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  display: grid;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.why-airomotion-card {
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 48px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 250px;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.why-airomotion-card:nth-child(4n) {
+  border-right: none;
+}
+
+.why-airomotion-card-number {
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 32px;
+  font-size: 0.75rem;
+  display: block;
+  font-family: var(--font-sans);
+}
+
+.why-airomotion-card-title {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #fff;
+  margin: 0 0 14px 0;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.why-airomotion-card-text {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+  font-weight: 300;
+}
+
+/* Responsive Styles for Why Airomotion Section */
+@media (max-width: 1024px) {
+  .why-airomotion-container {
+    padding: 0 2rem;
+  }
+}
+
+@media (max-width: 880px) {
+  .why-airomotion-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .why-airomotion-card:nth-child(4n) {
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .why-airomotion-card:nth-child(2n) {
+    border-right: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-airomotion-container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .why-airomotion-section {
+    padding: 90px 0;
+    min-height: 500px;
+  }
+
+  .why-airomotion-header {
+    margin-bottom: 48px;
+  }
+
+  .why-airomotion-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .why-airomotion-card {
+    padding: 36px 24px;
+    min-height: auto;
+    border-right: none !important;
+  }
+}
+
+/* Testimonials */
+.testimonials-section {
+  padding: 140px 0;
+  background-color: var(--bg-white);
+  border-top: 1px solid var(--border-black);
+}
+
+.testimonials-header {
+  margin-bottom: 80px;
+}
+
+.testimonials-section .section-title {
+  font-family: "Inter", var(--font-sans);
+  font-size: clamp(2.75rem, 4.3vw, 3.45rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  color: var(--text-black);
+  max-width: none;
+  white-space: nowrap;
+}
+
+.testimonials-section .section-title strong {
+  font-weight: 500;
+}
+
+.reviews {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  width: 100%;
+}
+
+.review {
+  border: 1px solid #eaeaea;
+  padding: 44px 36px;
+  gap: 20px;
+  background: #ffffff;
+  transition: border-color 0.5s ease, box-shadow 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: none;
+}
+
+.review:hover {
+  /* border-color: var(--text-black); */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), 0 16px 48px rgba(0, 0, 0, 0.14);
+}
+
+.review-cat {
+  margin-bottom: 0 !important;
+}
+
+.review-q {
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--text-black);
+}
+
+.review-a {
+  font-family: var(--font-sans);
+  color: var(--text-grey-light);
+  letter-spacing: 0.04em;
+  font-size: 13px;
+  margin-top: auto;
+}
+
+@media (min-width: 720px) {
+  .reviews {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* =============================================
+   HOME CTA — Full-bleed photo background section
+   (matches smart-living-design.lovable.app CTA)
+   ============================================= */
+.home-cta-section {
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Real photo background */
+.home-cta-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 40%;
+  z-index: 1;
+  transform: scale(1.04);
+  transition: transform 8s ease;
+  filter: saturate(0.25);
+}
+
+.home-cta-section:hover .home-cta-bg {
+  transform: scale(1);
+}
+
+/* Dark gradient overlay */
+.home-cta-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.62) 50%,
+      rgba(0, 0, 0, 0.72) 100%);
+  z-index: 2;
+}
+
+/* Centered text content */
+.home-cta-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding: 100px 24px;
+  max-width: 780px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.home-cta-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+.home-cta-title {
+  font-family: var(--font-sans);
+  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  margin: 0 auto 1.75rem;
+  white-space: nowrap;      /* Prevent line break */
+  max-width: none;          /* Remove 14ch limit */
+  text-align: center;
+}
+
+.home-cta-title em {
+  font-weight: 500;
+}
+
+
+.home-cta-desc {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 600px;
+  margin: 0 auto 2.75rem;   /* Center the block */
+  text-align: center;       /* Center the text */
+}
+
+/* Pill button — white outline, fills on hover */
+.home-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 2.2rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.75);
+  /* border-radius: 100px; */
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  background: transparent;
+  transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+  cursor: pointer;
+}
+
+.home-cta-btn:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(255, 255, 255, 0.95);
+  color: #000;
+}
+
+.home-cta-arrow {
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.home-cta-btn:hover .home-cta-arrow {
+  transform: translateX(4px);
+}
+
+/* Responsive Grid layouts */
+@media (max-width: 1024px) {
+  .hero-section {
+    align-items: flex-start;
+    padding: 0;
+  }
+  
+  .hero-content {
+    padding: 50vh 2rem 3.5rem;
+    padding-top: 50dvh;
+  }
+  
+  .hero-scene-nav {
+    bottom: 2rem;
+    right: 2rem;
+    gap: 1rem;
+  }
+  
+  .hero-text-block {
+    max-width: 100%;
+  }
+  
+  .what-we-do-title {
+    white-space: normal;
+  }
+  
+  .marquee-item {
+    font-size: 0.72rem;
+    margin-right: 2rem;
+  }
+  
+  .cat-list li {
+    height: 48px;
+  }
+  
+  .why-airomotion-card {
+    padding: 40px 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Hero Section - Medium Tablet */
+  .hero-section {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 720px;
+    padding-top: 0;
+    align-items: flex-start;
+  }
+  
+  .hero-content {
+    padding: 50vh 1.4rem 3.5rem;
+    padding-top: 50dvh;
+    margin-top: 0;
+  }
+  
+  .hero-text-block {
+    gap: 1.2rem;
+  }
+  
+  .hero-text-block .text-uppercase-badge {
+    font-size: 0.63rem;
+    letter-spacing: 0.22em;
+    margin-bottom: 0.3rem;
+  }
+  
+  .hero-title {
+    font-size: clamp(2.65rem, 8vw, 3.8rem);
+    line-height: 1.1;
+  }
+  
+  .hero-desc {
+    font-size: 0.95rem;
+    letter-spacing: 0.18em;
+    line-height: 1.5;
+    max-width: 95%;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+  
+  .hero-buttons .btn {
+    width: 100%;
+    font-size: 0.88rem;
+    padding: 0.85rem 1.5rem;
+  }
+  
+  .hero-scene-nav {
+    bottom: 1.8rem;
+    right: 1.4rem;
+    left: auto;
+    gap: 0.8rem;
+  }
+  
+  .scene-nav-btn {
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+  }
+  
+  /* Marquee - Medium Tablet */
+  .marquee-container {
+    height: 40px;
+    padding: 0 1.4rem;
+  }
+  
+  .marquee-item {
+    font-size: 0.68rem;
+    margin-right: 1.8rem;
+  }
+  
+  .marquee-dot {
+    width: 3px;
+    height: 3px;
+  }
+  
+  /* What We Do Section */
+  .what-we-do-head {
+    max-width: 100%;
+    padding: 0 1.4rem;
+  }
+  
+  .what-we-do-title {
+    white-space: normal;
+    font-size: clamp(1.7rem, 3.8vw, 2.3rem);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  
+  .what-we-do-desc {
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+  
+  .section-title {
+    font-size: clamp(1.7rem, 4.2vw, 2.4rem);
+    line-height: 1.15;
+    padding: 0 1.4rem;
+  }
+  
+  .cat-card,
+  .cat-card:nth-child(2n) {
+    direction: ltr;
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+    align-items: stretch;
+  }
+  
+  .cat-media {
+    aspect-ratio: 16 / 12;
+    border-radius: 3px;
+  }
+  
+  .cat-body {
+    max-width: 100%;
+    padding: 0 1.4rem 0 0;
+  }
+  
+  .cat-title {
+    font-size: clamp(1.35rem, 3.5vw, 1.9rem);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  
+  .cat-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  
+  .cat-body .eyebrow {
+    margin-bottom: 1.2rem;
+    font-size: 0.76rem;
+  }
+  
+  .cat-list {
+    margin: 1.5rem 0;
+    gap: 0;
+  }
+  
+  .cat-list li {
+    height: 45px;
+    font-size: 0.84rem;
+  }
+  
+  .cat-link {
+    font-size: 0.76rem;
+    padding-top: 16px;
+  }
+  
+  /* Why Airomotion Section - Medium Tablet */
+  .why-airomotion-section {
+    padding: 100px 0;
+  }
+  
+  .why-airomotion-container {
+    padding: 0 1.4rem;
+  }
+  
+  .why-airomotion-header {
+    margin-bottom: 50px;
+  }
+  
+  .why-airomotion-eyebrow {
+    font-size: 0.69rem;
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.28em;
+  }
+  
+  .why-airomotion-title {
+    font-size: clamp(1.65rem, 4vw, 2.1rem);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  
+  .why-airomotion-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  
+  .why-airomotion-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .why-airomotion-card {
+    padding: 34px 22px;
+    min-height: auto;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .why-airomotion-card:nth-child(2n) {
+    border-right: none;
+  }
+  
+  .why-airomotion-card-number {
+    font-size: 0.72rem;
+    margin-bottom: 20px;
+  }
+  
+  .why-airomotion-card-title {
+    font-size: 1.15rem;
+    line-height: 1.3;
+  }
+  
+  .why-airomotion-card-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  
+  /* Testimonials - Medium Tablet */
+  .testimonials-section {
+    padding: 100px 0;
+  }
+  
+  .testimonials-header {
+    margin-bottom: 60px;
+    padding: 0 1.4rem;
+  }
+  
+  .testimonials-section .section-title {
+    font-size: clamp(1.7rem, 4.2vw, 2.2rem);
+    white-space: normal;
+    line-height: 1.2;
+  }
+  
+  .reviews {
+    gap: 18px;
+    padding: 0 1.4rem;
+  }
+  
+  .review {
+    padding: 26px 20px;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+  }
+  
+  .review-q {
+    font-size: 15.5px;
+    line-height: 1.5;
+  }
+  
+  .review-a {
+    font-size: 12px;
+    margin-top: 14px;
+  }
+  
+  /* CTA Section - Medium Tablet */
+  .home-cta-section {
+    min-height: 400px;
+  }
+  
+  .home-cta-content {
+    padding: 60px 1.4rem;
+  }
+  
+  .home-cta-eyebrow {
+    font-size: 0.69rem;
+    letter-spacing: 0.32em;
+    margin-bottom: 1.3rem;
+  }
+  
+  .home-cta-title {
+    font-size: clamp(1.7rem, 4.2vw, 2.4rem);
+    line-height: 1.15;
+    white-space: normal;
+    margin-bottom: 1.2rem;
+  }
+  
+  .home-cta-desc {
+    font-size: 0.93rem;
+    line-height: 1.6;
+    max-width: 100%;
+    margin-bottom: 2.2rem;
+  }
+  
+  .home-cta-btn {
+    padding: 0.8rem 1.8rem;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Hero Section - Tablet & Small Tablet */
+  .hero-section {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 700px;
+    padding-top: 0;
+    align-items: flex-start;
+  }
+  
+  .hero-content {
+    padding: 50vh 1.2rem 3rem;
+    padding-top: 50dvh;
+    margin-top: 0;
+    width: 100%;
+    position: relative;
+    z-index: 3;
+  }
+  
+  .hero-text-block {
+    gap: 1.25rem;
+    width: 100%;
+  }
+  
+  .hero-text-block .text-uppercase-badge {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 0.5rem;
+  }
+  
+  .hero-title {
+    font-size: clamp(2.5rem, 10vw, 3.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  
+  .hero-desc {
+    font-size: 0.95rem;
+    letter-spacing: 0.18em;
+    line-height: 1.5;
+    max-width: 95%;
+  }
+  
+  .hero-buttons {
+    width: 100%;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .hero-buttons .btn {
+    font-size: 0.86rem;
+    padding: 0.82rem 1.4rem;
+    flex: 1;
+    min-width: 140px;
+  }
+  
+  .hero-scene-nav {
+    bottom: 2rem;
+    right: 1.2rem;
+    left: auto;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+  
+  .scene-nav-btn {
+    font-size: 0.6rem;
+    padding: 0.4rem 0;
+    letter-spacing: 0.15em;
+  }
+  
+  /* Marquee - Tablet */
+  .marquee-container {
+    height: 40px;
+    padding: 0 1.2rem;
+  }
+  
+  .marquee-item {
+    font-size: 0.65rem;
+    margin-right: 1.8rem;
+    gap: 0.6rem;
+  }
+  
+  .marquee-dot {
+    width: 3px;
+    height: 3px;
+  }
+  
+  /* What We Do Section */
+  .what-we-do-head {
+    max-width: 100%;
+    padding: 0 1.2rem;
+  }
+  
+  .what-we-do-title {
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    white-space: normal;
+    margin-bottom: 1rem;
+  }
+  
+  .what-we-do-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #555;
+  }
+  
+  /* Section Title */
+  .section-title {
+    font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+    line-height: 1.15;
+    padding: 0 1.2rem;
+  }
+  
+  .cat-grid {
+    gap: 2rem;
+    padding: 0 1.2rem;
+  }
+  
+  .cat-card,
+  .cat-card:nth-child(2n) {
+    direction: ltr;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  
+  .cat-media {
+    aspect-ratio: 16 / 12;
+    border-radius: 3px;
+  }
+  
+  .cat-body {
+    max-width: 100%;
+  }
+  
+  .cat-title {
+    font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  
+  .cat-desc {
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+  
+  .cat-body .eyebrow {
+    margin-bottom: 1.2rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+  }
+  
+  .cat-list {
+    margin: 1.5rem 0;
+    gap: 0;
+  }
+  
+  .cat-list li {
+    height: 48px;
+    font-size: 0.82rem;
+    padding: 0 0;
+  }
+  
+  .cat-link {
+    padding-top: 16px;
+    padding-bottom: 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+  }
+  
+  /* Why Airomotion Section - Tablet */
+  .why-airomotion-section {
+    padding: 100px 0;
+    min-height: auto;
+  }
+  
+  .why-airomotion-container {
+    padding: 0 1.2rem;
+  }
+  
+  .why-airomotion-header {
+    margin-bottom: 50px;
+  }
+  
+  .why-airomotion-eyebrow {
+    font-size: 0.68rem;
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.28em;
+  }
+  
+  .why-airomotion-title {
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  
+  .why-airomotion-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 100%;
+  }
+  
+  .why-airomotion-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .why-airomotion-card {
+    padding: 32px 20px;
+    min-height: auto;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .why-airomotion-card:nth-child(2n) {
+    border-right: none;
+  }
+  
+  .why-airomotion-card:nth-child(n+3) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .why-airomotion-card-number {
+    font-size: 0.7rem;
+    margin-bottom: 20px;
+    letter-spacing: 0.25em;
+  }
+  
+  .why-airomotion-card-title {
+    font-size: 1.1rem;
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+  
+  .why-airomotion-card-text {
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+  
+  /* Testimonials - Tablet */
+  .testimonials-section {
+    padding: 90px 0;
+  }
+  
+  .testimonials-header {
+    margin-bottom: 60px;
+    padding: 0 1.2rem;
+  }
+  
+  .testimonials-section .section-title {
+    font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+    white-space: normal;
+    line-height: 1.2;
+  }
+  
+  .reviews {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 0 1.2rem;
+  }
+  
+  .review {
+    padding: 24px 18px;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+  }
+  
+  .review-q {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  
+  .review-a {
+    font-size: 12px;
+    margin-top: 12px;
+  }
+  
+  /* CTA Section - Tablet */
+  .home-cta-section {
+    min-height: 380px;
+    padding: 0;
+  }
+  
+  .home-cta-content {
+    padding: 50px 1.2rem;
+    max-width: 100%;
+    gap: 0;
+  }
+  
+  .home-cta-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    margin-bottom: 1.2rem;
+  }
+  
+  .home-cta-title {
+    font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+    line-height: 1.15;
+    white-space: normal;
+    margin-bottom: 1rem;
+  }
+  
+  .home-cta-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+  
+  .home-cta-btn {
+    padding: 0.7rem 1.6rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Hero Section - Mobile */
+  .hero-section {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 680px;
+    padding-top: 0;
+    align-items: flex-start;
+  }
+  
+  .hero-content {
+    padding: 50vh 0.9rem 2.5rem;
+    padding-top: 50dvh;
+    margin-top: 0;
+  }
+  
+  .hero-text-block {
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  .hero-text-block .text-uppercase-badge {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+  }
+  
+  .hero-title {
+    font-size: clamp(2.25rem, 10vw, 2.85rem);
+    line-height: 1.1;
+  }
+  
+  .hero-desc {
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    line-height: 1.4;
+  }
+  
+  .hero-buttons {
+    width: 100%;
+    gap: 0.6rem;
+    margin-top: 1.2rem;
+    flex-wrap: wrap;
+  }
+  
+  .hero-buttons .btn {
+    font-size: 0.85rem;
+    padding: 0.8rem 1.1rem;
+    flex: 1;
+    min-width: 130px;
+  }
+  
+  .hero-scene-nav {
+    bottom: 1.5rem;
+    right: 0.9rem;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .scene-nav-btn {
+    font-size: 0.6rem;
+    padding: 0.3rem 0;
+  }
+  
+  /* Marquee - Mobile */
+  .marquee-container {
+    height: 36px;
+    padding: 0 0.9rem;
+  }
+  
+  .marquee-item {
+    font-size: 0.7rem;
+    margin-right: 1.4rem;
+  }
+  
+  /* What We Do Section - Mobile */
+  .what-we-do-head {
+    padding: 0 0.9rem;
+  }
+  
+  .what-we-do-title {
+    font-size: clamp(1.5rem, 4.5vw, 2rem);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.8rem;
+  }
+  
+  .what-we-do-desc {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  /* Section Title */
+  .section-title {
+    font-size: clamp(1.6rem, 4.5vw, 2rem);
+    line-height: 1.15;
+    padding: 0 0.9rem;
+  }
+  
+  .cat-grid {
+    gap: 1.5rem;
+    padding: 0 0.9rem;
+  }
+  
+  .cat-card,
+  .cat-card:nth-child(2n) {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+  
+  .cat-media {
+    aspect-ratio: 16 / 14;
+    border-radius: 2px;
+  }
+  
+  .cat-title {
+    font-size: clamp(1.3rem, 3.5vw, 1.7rem);
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
+  }
+  
+  .cat-desc {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  .cat-body .eyebrow {
+    margin-bottom: 1rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+  }
+  
+  .cat-list {
+    margin: 1.2rem 0;
+  }
+  
+  .cat-list li {
+    height: 44px;
+    font-size: 0.9rem;
+  }
+  
+  .cat-link {
+    padding-top: 14px;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+  }
+  
+  /* Why Airomotion Section - Mobile */
+  .why-airomotion-section {
+    padding: 80px 0;
+    min-height: auto;
+  }
+  
+  .why-airomotion-container {
+    padding: 0 0.9rem;
+  }
+  
+  .why-airomotion-header {
+    margin-bottom: 40px;
+  }
+  
+  .why-airomotion-eyebrow {
+    font-size: 0.7rem;
+    margin-bottom: 1rem;
+  }
+  
+  .why-airomotion-title {
+    font-size: clamp(1.6rem, 4.5vw, 2rem);
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+  }
+  
+  .why-airomotion-description {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  .why-airomotion-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .why-airomotion-card {
+    padding: 24px 14px;
+    min-height: auto;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .why-airomotion-card:last-child {
+    border-bottom: none;
+  }
+  
+  .why-airomotion-card-number {
+    font-size: 0.7rem;
+    margin-bottom: 14px;
+  }
+  
+  .why-airomotion-card-title {
+    font-size: 1.15rem;
+    line-height: 1.3;
+  }
+  
+  .why-airomotion-card-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  /* Testimonials - Mobile */
+  .testimonials-section {
+    padding: 80px 0;
+  }
+  
+  .testimonials-header {
+    margin-bottom: 50px;
+    padding: 0 0.9rem;
+  }
+  
+  .testimonials-section .section-title {
+    font-size: clamp(1.6rem, 4.5vw, 2rem);
+    white-space: normal;
+  }
+  
+  .reviews {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 0 0.9rem;
+  }
+  
+  .review {
+    padding: 18px 14px;
+    border: 1px solid #efefef;
+    border-radius: 1px;
+  }
+  
+  .review-q {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+  
+  .review-a {
+    font-size: 13px;
+    margin-top: 10px;
+    letter-spacing: 0.03em;
+  }
+  
+  /* CTA Section - Mobile */
+  .home-cta-section {
+    min-height: 340px;
+  }
+  
+  .home-cta-content {
+    padding: 40px 0.9rem;
+  }
+  
+  .home-cta-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    margin-bottom: 1rem;
+  }
+  
+  .home-cta-title {
+    font-size: clamp(1.6rem, 4.5vw, 2rem);
+    line-height: 1.15;
+    white-space: normal;
+    margin-bottom: 0.8rem;
+  }
+  
+  .home-cta-desc {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+  
+  .home-cta-btn {
+    padding: 0.65rem 1.3rem;
+    font-size: 0.85rem;
+  }
+}
