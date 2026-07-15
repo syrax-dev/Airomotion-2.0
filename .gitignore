@@ -1,5 +1,3 @@
-# Ignore backend for now
-Server/
 
 # Node modules
 **/node_modules

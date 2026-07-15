@@ -31,7 +31,7 @@ const About = () => {
         <div className="lx-container">
           <span className="bw-eyebrow">Airomotion</span>
           <h1>
-            <em>AIROMOTION</em> stands for <em>innovation</em> in motion <br /> combining <em>intelligence</em> with agility.
+            <em>AIROMOTION</em> moves innovation with intelligence.
           </h1>
           <p>
             Reflects a promise of efficiency, creativity, and forward momentum in every venture.

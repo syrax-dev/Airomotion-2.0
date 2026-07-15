@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import ScrollReveal from '../components/ScrollReveal';
 import './Services.css';
 import { submitRegistration } from '../api/api';
@@ -15,10 +15,8 @@ const Services = () => {
     serialNumber: '',
     purchaseDate: '',
     installationDate: '',
-    invoice: null,
     notes: ''
   });
-  const invoiceInputRef = useRef(null);
   const [errors, setErrors] = useState({});
   const [showErrors, setShowErrors] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -137,11 +135,6 @@ const Services = () => {
         return value ? '' : 'Purchase date is required.';
       case 'installationDate':
         return value ? '' : 'Installation date is required.';
-      case 'invoice':
-        if (!value) return 'Invoice upload is required.';
-        return value.type === 'application/pdf'
-          ? ''
-          : 'Only PDF files are allowed for invoice upload.';
       case 'notes':
         return value.trim().length >= 10 ? '' : 'Please add a brief note about your installation.';
       default:
@@ -160,35 +153,17 @@ const Services = () => {
   };
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    const file = name === 'invoice' ? files?.[0] || null : null;
-    const fieldValue = name === 'invoice' ? file : value;
+    const { name, value } = e.target;
 
     setFormData((prev) => ({
       ...prev,
-      [name]: fieldValue
+      [name]: value
     }));
 
     if (showErrors) {
       setErrors((prev) => ({
         ...prev,
-        [name]: validateField(name, fieldValue)
-      }));
-    }
-  };
-
-  const clearInvoiceUpload = () => {
-    if (invoiceInputRef.current) {
-      invoiceInputRef.current.value = '';
-    }
-    setFormData((prev) => ({
-      ...prev,
-      invoice: null
-    }));
-    if (showErrors) {
-      setErrors((prev) => ({
-        ...prev,
-        invoice: validateField('invoice', null)
+        [name]: validateField(name, value)
       }));
     }
   };
@@ -252,21 +227,19 @@ const Services = () => {
               const doSubmit = async () => {
                 setIsLoading(true);
                 try {
-                  const fd = new FormData();
-                  fd.append('name', formData.fullName);
-                  fd.append('phone', formData.phone);
-                  fd.append('email', formData.email);
-                  fd.append('address', formData.address);
-                  fd.append('productCategory', formData.productCategory);
-                  fd.append('productName', formData.productName);
-                  fd.append('modelNumber', formData.modelNumber);
-                  fd.append('serialNumber', formData.serialNumber);
-                  fd.append('purchaseDate', formData.purchaseDate);
-                  fd.append('installationDate', formData.installationDate);
-                  if (formData.notes) fd.append('notes', formData.notes);
-                  if (formData.invoice) fd.append('invoice', formData.invoice, formData.invoice.name);
-
-                  await submitRegistration(fd);
+                  await submitRegistration({
+                    name: formData.fullName,
+                    phone: formData.phone,
+                    email: formData.email,
+                    address: formData.address,
+                    productCategory: formData.productCategory,
+                    productName: formData.productName,
+                    modelNumber: formData.modelNumber,
+                    serialNumber: formData.serialNumber,
+                    purchaseDate: formData.purchaseDate,
+                    installationDate: formData.installationDate,
+                    notes: formData.notes
+                  });
                   setSubmitSuccess(true);
                 } catch (err) {
                   const msg = err?.response?.data?.message || 'Failed to submit registration. Please try again.';
@@ -392,39 +365,6 @@ const Services = () => {
                     onChange={handleChange}
                   />
                   {showErrors && errors.installationDate && <span className="form-error">{errors.installationDate}</span>}
-                </div>
-                <div className={`form-row full${showErrors && errors.invoice ? ' form-row--error' : ''}`}>
-                  <label htmlFor="invoice">Invoice Upload</label>
-                  <div className="form-file-row">
-                    <span className="form-file-name">
-                      {formData.invoice ? formData.invoice.name : 'No file chosen'}
-                    </span>
-                    <div className="form-file-actions">
-                      {formData.invoice && (
-                        <button
-                          type="button"
-                          className="form-file-clear"
-                          onClick={clearInvoiceUpload}
-                          aria-label="Remove selected invoice"
-                        >
-                          ×
-                        </button>
-                      )}
-                      <div className="form-file-control">
-                        <input
-                          ref={invoiceInputRef}
-                          id="invoice"
-                          name="invoice"
-                          type="file"
-                          accept="application/pdf"
-                          className="form-file-input"
-                          onChange={handleChange}
-                        />
-                        <label htmlFor="invoice" className="form-file-label">Choose File</label>
-                      </div>
-                    </div>
-                  </div>
-                  {showErrors && errors.invoice && <span className="form-error">{errors.invoice}</span>}
                 </div>
                 <div className={`form-row full${showErrors && errors.notes ? ' form-row--error' : ''}`}>
                   <label htmlFor="notes">Notes</label>

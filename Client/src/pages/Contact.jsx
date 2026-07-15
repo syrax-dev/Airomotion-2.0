@@ -33,7 +33,7 @@ const Contact = () => {
         break;
       case 'phone':
         if (!value) error = 'Phone Number is required.';
-        else if (!/^[6-9]\d{9}$/.test(value)) error = 'Enter a valid 10-digit mobile number.';
+        else if (!/^[6-9]\d{9}$/.test(value.replace(/\D/g, ''))) error = 'Enter a valid 10-digit mobile number.';
         break;
       case 'productCategory':
         if (!value) error = 'Please select a Product Category.';
@@ -68,7 +68,13 @@ const Contact = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const formattedValue = name === 'phone'
+      ? value
+        .replace(/\D/g, '')
+        .slice(0, 10)
+        .replace(/(\d{5})(\d)/, '$1 $2')
+      : value;
+    setFormData(prev => ({ ...prev, [name]: formattedValue }));
   };
 
   const handleBlur = (e) => {
@@ -91,13 +97,16 @@ const Contact = () => {
       try {
         const payload = {
           name: formData.fullName,
-          phone: formData.phone,
+          phone: formData.phone.replace(/\D/g, ''),
           email: formData.email,
           productCategory: formData.productCategory,
           propertyType: formData.propertyType,
           message: formData.message,
         };
         await submitEnquiry(payload);
+        setErrors({});
+        setTouched({});
+        setShowErrors(false);
         setIsSubmitted(true);
         window.scrollTo({ top: 200, behavior: 'smooth' });
       } catch (err) {
@@ -113,7 +122,10 @@ const Contact = () => {
 
   const handleReset = () => {
     setFormData({ fullName: '', email: '', phone: '', productCategory: '', propertyType: '', message: '' });
+    setErrors({});
     setTouched({});
+    setShowErrors(false);
+    setIsValid(false);
     setIsSubmitted(false);
   };
 
@@ -147,8 +159,7 @@ const Contact = () => {
                   <span className="ct-info-label">Address</span>
                   <strong className="ct-info-value">
                     LIMANI TECHNOLOGIES<br />
-                    Gandhinagar, Gujarat<br />
-                    India – 382610
+                    Gandhinagar, Gujarat India – 382610
                   </strong>
                 </div>
                 <div className="ct-info-block">
@@ -161,6 +172,8 @@ const Contact = () => {
                   <span className="ct-info-label">Phone</span>
                   <strong className="ct-info-value">
                     <a href="tel:+919712925077">(+91) 97129 25077</a>
+                    <br />
+                    <a href="tel:+919712925077">(+91) 94092 67235</a>
                   </strong>
                 </div>
                 <div className="ct-info-block">
@@ -188,13 +201,14 @@ const Contact = () => {
                     <div className={`ct-field${touched.fullName && errors.fullName ? ' ct-field--err' : ''}`}>
                       <label className="ct-label" htmlFor="ctFullName">Full Name</label>
                       <input id="ctFullName" name="fullName" type="text" className="ct-input"
-                        value={formData.fullName} onChange={handleChange} onBlur={handleBlur} />
+                        value={formData.fullName} onChange={handleChange} onBlur={handleBlur} placeholder="Your Name"/>
                       {showErrors && errors.fullName && <span className="ct-error">{errors.fullName}</span>}
                     </div>
                     <div className={`ct-field${showErrors && errors.phone ? ' ct-field--err' : ''}`}>
                       <label className="ct-label" htmlFor="ctPhone">Phone</label>
                       <input id="ctPhone" name="phone" type="tel" className="ct-input"
-                        value={formData.phone} onChange={handleChange} onBlur={handleBlur} />
+                        value={formData.phone} onChange={handleChange} onBlur={handleBlur}
+                        inputMode="numeric" maxLength="11" placeholder="xxxxx xxxxx" />
                       {showErrors && errors.phone && <span className="ct-error">{errors.phone}</span>}
                     </div>
                   </div>
@@ -203,7 +217,7 @@ const Contact = () => {
                   <div className={`ct-field${showErrors && errors.email ? ' ct-field--err' : ''}`}>
                     <label className="ct-label" htmlFor="ctEmail">Email</label>
                     <input id="ctEmail" name="email" type="email" className="ct-input"
-                      value={formData.email} onChange={handleChange} onBlur={handleBlur} />
+                      value={formData.email} onChange={handleChange} onBlur={handleBlur} placeholder="name@example.com" />
                     {showErrors && errors.email && <span className="ct-error">{errors.email}</span>}
                   </div>
 
