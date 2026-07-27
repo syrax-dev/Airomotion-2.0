@@ -5,6 +5,9 @@
   height: 100dvh;
   min-height: 640px;
   background-color: var(--bg-black);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   color: var(--text-white);
   overflow: hidden;
   display: flex;

@@ -11,6 +11,7 @@ import SecurityVideoBell from '../assets/images/sections/Security/Security_Video
 import SecurityDoorLock from '../assets/images/sections/Security/Security_Door-Lock.webp';
 import EnergySolar from '../assets/images/sections/Energy/Energy_Solar.webp';
 import EnergyUPS from '../assets/images/sections/Energy/Energy_UPS.webp';
+import heroBackground from '../assets/images/sections/Hero-BG.webp';
 import heroVideo from '../assets/videos/HeroVideo.webm';
 
 const Home = () => {
@@ -35,8 +36,19 @@ const Home = () => {
   return (
     <div className="home-page-container">
       {/* 1. HERO SECTION */}
-      <section className="hero-section">
-        <video className="hero-video" autoPlay muted loop playsInline aria-hidden="true">
+      <section
+        className="hero-section"
+        style={{ backgroundImage: `url(${heroBackground})` }}
+      >
+        <video
+          className="hero-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster={heroBackground}
+          aria-hidden="true"
+        >
           <source src={heroVideo} type="video/webm" />
         </video>
         <div className="hero-overlay"></div>
