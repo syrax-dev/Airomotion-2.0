@@ -2,6 +2,7 @@ import React from 'react';
 import ScrollReveal from '../components/ScrollReveal';
 import AnimatedCounter from '../components/AnimatedCounter';
 import './About.css';
+import aboutStoryImage from '../assets/images/sections/about-story.webp';
 
 const About = () => {
   const studioStats = [
@@ -44,7 +45,7 @@ const About = () => {
         <div className="container">
           <div className="about-story-split">
             <ScrollReveal animation="reveal-on-scroll" className="about-story-image">
-              <img src="/src/assets/images/sections/about-story.webp" alt="AIROMOTION Story" />
+              <img src={aboutStoryImage} alt="AIROMOTION Story" />
             </ScrollReveal>
             <ScrollReveal animation="reveal-on-scroll" delay="delay-1" className="about-story-text">
               <span className="about-story-eyebrow">Our Story</span>

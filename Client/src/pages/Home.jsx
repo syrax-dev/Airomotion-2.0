@@ -11,6 +11,7 @@ import SecurityVideoBell from '../assets/images/sections/Security/Security_Video
 import SecurityDoorLock from '../assets/images/sections/Security/Security_Door-Lock.webp';
 import EnergySolar from '../assets/images/sections/Energy/Energy_Solar.webp';
 import EnergyUPS from '../assets/images/sections/Energy/Energy_UPS.webp';
+import ctaBackground from '../assets/images/sections/cta-bg.webp';
 import heroBackground from '../assets/images/sections/Hero-BG.webp';
 import heroVideo from '../assets/videos/HeroVideo.webm';
 
@@ -257,7 +258,7 @@ const Home = () => {
       {/* 7. CTA SECTION */}
       <section className="home-cta-section">
         {/* Dark background image with overlay */}
-        <div className="home-cta-bg" style={{ backgroundImage: 'url(/src/assets/images/sections/cta-bg.webp)' }} />
+        <div className="home-cta-bg" style={{ backgroundImage: `url(${ctaBackground})` }} />
         <div className="home-cta-overlay" />
 
         {/* Content */}
