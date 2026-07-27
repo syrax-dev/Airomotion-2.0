@@ -1,12 +1,13 @@
 {
-  "name": "server",
+  "name": "airomotion-server",
   "version": "1.0.0",
-  "description": "AIROMOTION Backend",
+  "description": "Airomotion backend API",
   "type": "module",
   "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "start": "nodemon src/server.js"
+    "start": "node src/server.js",
+    "test": "node --test"
   },
   "keywords": [],
   "author": "",

@@ -65,7 +65,9 @@ const Footer = () => {
         <div className="footer-grid">
           {/* Column 01 — Brand */}
           <div className="footer-col">
-            <h3 className="footer-brand-title">AIROMOTION</h3>
+            <Link to="/" className="footer-brand-logo-link" aria-label="AIROMOTION Home">
+              <span className="footer-brand-logo">AIROMOTION</span>
+            </Link>
             <p className="footer-brand-subtitle">Connecting your world, Seamlessly</p>
             <p className="footer-desc">
               Intelligent automation, security, and energy solutions engineered for modern living and connected spaces.
@@ -103,9 +105,9 @@ const Footer = () => {
           <div className="footer-col">
             <h4 className="footer-heading">Solutions</h4>
             <div className="footer-links">
-              <Link to="/products?cat=automation" className="footer-link-item">Smart Automation</Link>
-              <Link to="/products?cat=security" className="footer-link-item">Smart Security</Link>
-              <Link to="/products?cat=energy" className="footer-link-item">Energy Management</Link>
+              <Link to="/products?category=automation#category-start" className="footer-link-item">Smart Automation</Link>
+              <Link to="/products?category=security#category-start" className="footer-link-item">Smart Security</Link>
+              <Link to="/products?category=energy#category-start" className="footer-link-item">Energy Management</Link>
             </div>
           </div>
 
@@ -137,7 +139,7 @@ const Footer = () => {
           <div className="footer-credit">
             Designed &amp; Developed by <a href="https://syraxdev.vercel.app/" target="_blank" rel="noopener noreferrer">SyraxDev</a>
           </div>
-          <div className="footer-tagline">Connect, Control, Relax.</div>
+          <div className="footer-tagline">Connect, Control & Relax.</div>
         </div>
       </div>
     </footer>

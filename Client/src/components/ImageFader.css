@@ -1,0 +1,31 @@
+.image-fader {
+  --fader-duration: 4500ms;
+  /* Fade duration can be tuned here (slow by default) */
+  --fade-duration: 3000ms;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.image-fader-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0;
+  transition: opacity var(--fade-duration) ease !important;
+  will-change: opacity !important;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-origin: center center;
+  /* Keep transforms out — only fade during transitions */
+  transform: none;
+}
+
+.image-fader-img.active {
+  opacity: 1 !important;
+}

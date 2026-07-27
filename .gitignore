@@ -2,8 +2,21 @@
 # Node modules
 **/node_modules
 
-# Environment files
+# Environment files (keep example templates tracked)
+.env
 **/.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+!.env.example
+!**/.env.example
+
+# Backend credentials and private key material
+Server/credentials/
+*.pem
+*.key
 
 # Logs
 *.log

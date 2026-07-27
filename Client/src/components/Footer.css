@@ -19,16 +19,28 @@
   gap: 1.5rem;
 }
 
-.footer-brand-title {
-  font-family: 'Rajdhani', var(--font-sans);
-  font-size: 1.75rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+.footer-brand-logo-link {
+  display: inline-flex;
+  align-self: flex-start;
+  color: var(--text-white);
+}
+
+.footer-brand-logo {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-indent: 0.14em;
+  transition: opacity var(--transition-fast);
+}
+
+.footer-brand-logo-link:hover .footer-brand-logo {
+  opacity: 0.72;
 }
 
 .footer-brand-subtitle {
-  color: var(--text-grey-light);
+  color: rgba(255, 255, 255, 0.65);
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -40,7 +52,7 @@
 .footer-desc {
   font-size: 0.9rem;
   line-height: 1.7;
-  color: var(--text-grey-light);
+  color: rgba(255, 255, 255, 0.65);
   max-width: 320px;
 }
 
@@ -63,7 +75,7 @@
 
 .footer-link-item {
   font-size: 0.85rem;
-  color: var(--text-grey-light);
+  color: rgba(255, 255, 255, 0.65);
   transition: color var(--transition-fast), transform var(--transition-fast);
   display: inline-block;
   align-self: flex-start;
@@ -79,7 +91,7 @@
   flex-direction: column;
   gap: 1rem;
   font-size: 0.85rem;
-  color: var(--text-grey-light);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .footer-contact-info strong {
@@ -151,7 +163,7 @@
   align-items: center;
   gap: 1rem;
   font-size: 0.8rem;
-  color: var(--text-grey-light);
+  color: rgba(255, 255, 255, 0.65);
   letter-spacing: 0.05em;
 }
 
@@ -169,7 +181,7 @@
 }
 
 .footer-credit {
-  color: var(--text-grey-light);
+  color: rgba(255, 255, 255, 0.65);
   font-size: 0.8rem;
 }
 
@@ -215,8 +227,8 @@
     padding: 0 2rem;
   }
   
-  .footer-brand-title {
-    font-size: 1.5rem;
+  .footer-brand-logo {
+    font-size: 1.8rem;
   }
   
   .footer-brand-subtitle {
@@ -264,8 +276,8 @@
     padding: 0 1.5rem;
   }
   
-  .footer-brand-title {
-    font-size: 1.3rem;
+  .footer-brand-logo {
+    font-size: 1.65rem;
   }
   
   .footer-heading {
@@ -285,9 +297,8 @@
     padding: 0;
   }
   
-  .footer-brand-title {
-    font-size: 1.2rem;
-    letter-spacing: 0.03em;
+  .footer-brand-logo {
+    font-size: 1.55rem;
   }
   
   .footer-brand-subtitle {
@@ -371,8 +382,8 @@
     margin-bottom: 32px;
   }
   
-  .footer-brand-title {
-    font-size: 1rem;
+  .footer-brand-logo {
+    font-size: 1.45rem;
   }
   
   .footer-brand-subtitle {
@@ -464,9 +475,8 @@
     margin-bottom: 28px;
   }
   
-  .footer-brand-title {
-    font-size: 1.1rem;
-    letter-spacing: 0.03em;
+  .footer-brand-logo {
+    font-size: 1.35rem;
   }
   
   .footer-brand-subtitle {

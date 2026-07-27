@@ -1,7 +1,7 @@
 {
-  "name": "client",
+  "name": "airomotion",
   "version": "1.0.0",
-  "description": "AIROMOTION Frontend",
+  "description": "Airomotion smart automation, security, and energy solutions website",
   "type": "module",
   "scripts": {
     "dev": "vite",

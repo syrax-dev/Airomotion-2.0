@@ -28,7 +28,9 @@ const Header = () => {
     setIsProductsExpanded(false);
     document.body.classList.remove('menu-open');
     window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [location]);
+  // A product category changes only the query string.  It should not behave
+  // like a new page navigation or reset the visitor back to the page top.
+  }, [location.pathname]);
 
   const toggleMobileMenu = () => {
     const nextState = !isMobileMenuOpen;
@@ -55,9 +57,18 @@ const Header = () => {
     <>
       <header className={`main-header ${isScrolled ? 'scrolled' : ''} ${location.pathname === '/about' ? 'about-header' : ''}`}>
         <div className="header-container">
-          {/* Logo Mark + Wordmark */}
-          <Link to="/" className="logo" aria-label="AIROMOTION Home">
-            AIROMOTION
+          {/* Brand mark changes with the header background. */}
+          <Link
+            to="/"
+            className="logo"
+            aria-label="AIROMOTION Home"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
+            <img
+              className="logo-image"
+              src={isScrolled ? '/airomotion_light.png' : '/airomotion_dark.png'}
+              alt="AIROMOTION"
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -78,29 +89,29 @@ const Header = () => {
                 <div>
                   <h4 className="dropdown-col-title">Smart Automation</h4>
                   <div className="dropdown-list">
-                    <Link to="/products?cat=automation#switches" className="dropdown-item">Smart Switches</Link>
-                    <Link to="/products?cat=automation#lighting" className="dropdown-item">Smart Lighting</Link>
-                    <Link to="/products?cat=automation#sensors" className="dropdown-item">Sensors</Link>
-                    <Link to="/products?cat=automation#hub" className="dropdown-item">Smart Hub</Link>
-                    <Link to="/products?cat=automation#shading" className="dropdown-item">Shading Solutions</Link>
+                    <Link to="/products?category=automation#switches" className="dropdown-item">Smart Switches</Link>
+                    <Link to="/products?category=automation#lighting" className="dropdown-item">Smart Lighting</Link>
+                    <Link to="/products?category=automation#sensors" className="dropdown-item">Sensors</Link>
+                    <Link to="/products?category=automation#hub" className="dropdown-item">Smart Hub</Link>
+                    <Link to="/products?category=automation#shading" className="dropdown-item">Shading Solutions</Link>
                   </div>
                 </div>
                 <div>
                   <h4 className="dropdown-col-title">Smart Security</h4>
                   <div className="dropdown-list">
-                    <Link to="/products?cat=security#lock" className="dropdown-item">Smart Door Lock</Link>
-                    <Link to="/products?cat=security#cctv" className="dropdown-item">HD CCTV System</Link>
-                    <Link to="/products?cat=security#doorbell" className="dropdown-item">Smart Video Bell</Link>
-                    <Link to="/products?cat=security#gate" className="dropdown-item">Gate Automation</Link>
+                    <Link to="/products?category=security#lock" className="dropdown-item">Smart Door Lock</Link>
+                    <Link to="/products?category=security#cctv" className="dropdown-item">HD CCTV System</Link>
+                    <Link to="/products?category=security#doorbell" className="dropdown-item">Smart Video Bell</Link>
+                    <Link to="/products?category=security#gate" className="dropdown-item">Gate Automation</Link>
                   </div>
                 </div>
                 <div>
-                  <h4 className="dropdown-col-title">Smart Energy</h4>
+                  <h4 className="dropdown-col-title">Energy Management</h4>
                   <div className="dropdown-list">
-                    <Link to="/products?cat=energy#ups" className="dropdown-item">Solar Hybrid UPS</Link>
-                    <Link to="/products?cat=energy#panels" className="dropdown-item">Solar Panels</Link>
-                    <Link to="/products?cat=energy#battery" className="dropdown-item">Solar Battery</Link>
-                    <Link to="/products?cat=energy#wiring" className="dropdown-item">Wiring Solutions</Link>
+                    <Link to="/products?category=energy#ups" className="dropdown-item">Solar Hybrid UPS</Link>
+                    <Link to="/products?category=energy#panels" className="dropdown-item">Solar Panels</Link>
+                    <Link to="/products?category=energy#battery" className="dropdown-item">Solar Battery</Link>
+                    <Link to="/products?category=energy#wiring" className="dropdown-item">Wiring Solutions</Link>
                   </div>
                 </div>
               </div>
@@ -176,22 +187,30 @@ const Header = () => {
             <div className={`mobile-accordion-content ${isProductsExpanded ? 'open' : ''}`}>
               <Link to="/products?cat=automation" className="mobile-sub-link">Smart Automation</Link>
               <Link to="/products?cat=security" className="mobile-sub-link">Smart Security</Link>
-              <Link to="/products?cat=energy" className="mobile-sub-link">Smart Energy</Link>
-              <a href="/e-catalogue-placeholder.pdf" target="_blank" rel="noopener noreferrer" download className="mobile-sub-link">
-                E-Catalogue&nbsp;<span className="btn-download-icon" aria-hidden="true">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 3v12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M8 11l4 4 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M6 19h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </span>
-              </a>
+              <Link to="/products?cat=energy" className="mobile-sub-link">Energy Management</Link>
             </div>
           </div>
 
           <Link to="/services" className="mobile-nav-link">Services</Link>
           <Link to="/contact" className="mobile-nav-link">Contact</Link>
         </div>
+
+        <a
+          href="/e-catalogue-placeholder.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          download
+          className="mobile-catalogue-button"
+        >
+          Download E-Catalogue
+          <span className="btn-download-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 3v12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M8 11l4 4 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M6 19h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </span>
+        </a>
 
         <div className="mobile-menu-footer">
           <div className="mobile-socials">

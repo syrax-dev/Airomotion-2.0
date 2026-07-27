@@ -131,6 +131,18 @@
   padding: 180px 0 120px 0;
 }
 
+/* Keep the compact confirmation state balanced after the longer form is replaced. */
+.section.section-dark.registration-section--success {
+  min-height: calc(100vh - var(--header-height, 80px));
+  display: flex;
+  align-items: center;
+  padding: 96px 0;
+}
+
+.section.section-dark.registration-section--success .container {
+  width: 100%;
+}
+
 .section-dark .container {
   max-width: 980px;
   margin: 0 auto;
@@ -214,6 +226,7 @@
 /* additional exact matches */
 .section-dark .section-head h2 {
   max-width: 620px;
+  color: #fff;
 }
 
 .section-dark .form-card {
@@ -305,6 +318,13 @@
   -webkit-appearance: none;
 }
 
+.form-row input[type='file'] {
+  border-bottom: none;
+  padding: 0.5rem 0;
+  background: transparent;
+  color: #fff;
+}
+
 .form-row textarea {
   resize: vertical;
   min-height: 120px;
@@ -352,8 +372,8 @@
   border: 1px solid rgba(255, 255, 255, 0.18);
   color: rgba(255, 255, 255, 0.9);
   width: 40px;
-  height: 38px;
-  border-radius: 100%;
+  height: 40px;
+  border-radius: 50%;
   font-size: 18px;
   line-height: 1;
   display: inline-flex;
@@ -366,7 +386,7 @@
 .form-file-clear:hover:not(:disabled) {
   transform: scale(1.05);
   background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.55);
   color: #fff;
 }
 
@@ -375,10 +395,38 @@
   cursor: not-allowed;
 }
 
-.form-file-clear:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.55);
-  color: #fff;
+.form-file-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+
+.form-file-name-wrap {
+  min-width: 0;
+  flex: 1;
+}
+
+.form-file-name,
+.form-file-placeholder {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.92rem;
+  display: inline-block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.form-file-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.form-file-label-row {
+  display: none;
 }
 
 .form-file-control {
@@ -386,7 +434,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: min(160px, 100%);
+  width: min(180px, 100%);
 }
 
 .form-file-input {
@@ -401,27 +449,74 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.8rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.04);
+  padding: 0.45rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
   color: #fff;
   font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   cursor: pointer!important;
   text-align: center;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.form-file-label:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.45);
 }
 
 .form-file-name {
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 0.92rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 240px;
+  max-width: 260px;
+}
+
+.form-file-clear {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.95);
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  padding: 0;
+  flex: 0 0 38px;
+  aspect-ratio: 1;
+  box-sizing: border-box;
+  border-radius: 100%;
+  font-size: 18px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.form-file-clear:hover:not(:disabled) {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.55);
+  color: #fff;
+}
+
+.form-file-clear:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.form-submit-row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .form-submit {
-  display: block;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
@@ -451,8 +546,49 @@
   transition: transform 0.3s ease;
 }
 
-.form-submit:hover span {
+.form-submit .btn-arrow-inline {
+  margin-left: -0.3rem;
+}
+
+.form-submit:hover span:not(.btn-spinner) {
   transform: translateX(6px);
+}
+
+.form-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-spinner,
+.form-submit .btn-spinner,
+.ct-submit-btn .btn-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spinner-rotate 0.8s linear infinite;
+}
+
+/* The registration button is white, unlike the dark enquiry button. */
+.form-submit .btn-spinner {
+  display: inline-flex;
+  box-sizing: border-box;
+  flex: 0 0 16px;
+  margin: 0;
+  border-color: rgba(10, 10, 10, 0.3);
+  border-top-color: #0a0a0a;
+  animation: spinner-rotate 0.8s linear infinite !important;
+  transition: none !important;
+  will-change: transform;
+}
+
+@keyframes spinner-rotate {
+  to { transform: rotate(360deg); }
 }
 
 .form-row--error label {
@@ -492,6 +628,135 @@
 .form-success-message p {
   color: rgba(255, 255, 255, 0.76);
   margin: 0;
+}
+
+/* Service FAQ */
+.service-faq-section {
+  background: #fff;
+  color: #0a0a0a;
+  padding: 7rem 0;
+}
+
+.service-faq-container {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.75fr) minmax(0, 1.25fr);
+  gap: 6rem;
+  align-items: start;
+}
+
+.service-faq-intro {
+  position: sticky;
+  top: 7rem;
+}
+
+.service-faq-eyebrow {
+  display: block;
+  margin-bottom: 1rem;
+  color: rgba(10, 10, 10, 0.55);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.service-faq-intro h2 {
+  margin: 0;
+  font-size: clamp(2.2rem, 4vw, 4rem);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+}
+
+.service-faq-intro h2 em {
+  color: rgba(10, 10, 10, 0.42);
+}
+
+.service-faq-intro p {
+  max-width: 24rem;
+  margin: 1.5rem 0 0;
+  color: rgba(10, 10, 10, 0.62);
+  font-size: 0.96rem;
+}
+
+.service-faq-list {
+  border-top: 1px solid rgba(10, 10, 10, 0.16);
+}
+
+.service-faq-item {
+  border-bottom: 1px solid rgba(10, 10, 10, 0.16);
+}
+
+.service-faq-question {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr) 2rem;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.45rem 0;
+  border: 0;
+  background: transparent;
+  color: #0a0a0a;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+}
+
+.service-faq-number {
+  color: rgba(10, 10, 10, 0.42);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.service-faq-icon {
+  font-size: 1.6rem;
+  font-weight: 300;
+  line-height: 1;
+  text-align: right;
+}
+
+.service-faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-faq-item.is-open .service-faq-answer {
+  grid-template-rows: 1fr;
+}
+
+.service-faq-answer-content {
+  min-height: 0;
+  overflow: hidden;
+  padding: 0 3rem 0 3.75rem;
+}
+
+.service-faq-answer p {
+  max-width: 44rem;
+  margin: 0;
+  padding-bottom: 1.5rem;
+  color: rgba(10, 10, 10, 0.64);
+  font-size: 0.94rem;
+  line-height: 1.75;
+  opacity: 0;
+  transform: translateY(-0.4rem);
+  transition: opacity 0.22s ease, transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-faq-item.is-open .service-faq-answer p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.service-faq-question:hover,
+.service-faq-question:focus-visible {
+  color: rgba(10, 10, 10, 0.58);
+}
+
+.service-faq-question:focus-visible {
+  outline: 2px solid #0a0a0a;
+  outline-offset: -2px;
 }
 
 .btn-primary {
@@ -621,6 +886,23 @@
 }
 
 @media (max-width: 768px) {
+  /* Improve contrast on small screens where the form is viewed at arm's length. */
+  .section-dark .form-row label {
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .section-dark .form-row input::placeholder,
+  .section-dark .form-row textarea::placeholder {
+    color: rgba(255, 255, 255, 0.72);
+    opacity: 1;
+  }
+
+  .section-dark .form-file-name,
+  .section-dark .form-file-placeholder,
+  .section-dark .form-file-label {
+    color: rgba(255, 255, 255, 0.92);
+  }
+
   .services-hero {
     padding: 80px 1.5rem;
   }
@@ -1056,5 +1338,46 @@
   
   .form-success-message p {
     font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .service-faq-section {
+    padding: 5rem 0;
+  }
+
+  .service-faq-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .service-faq-intro {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .service-faq-section {
+    padding: 4rem 0;
+  }
+
+  .service-faq-question {
+    grid-template-columns: 2rem minmax(0, 1fr) 1.5rem;
+    gap: 0.75rem;
+    padding: 1.2rem 0;
+    font-size: 0.92rem;
+  }
+
+  .service-faq-answer-content {
+    padding: 0 0 0 2.75rem;
+  }
+
+  .service-faq-answer p {
+    padding-bottom: 1.25rem;
+  }
+
+  .service-faq-answer p,
+  .service-faq-intro p {
+    font-size: 0.9rem;
   }
 }

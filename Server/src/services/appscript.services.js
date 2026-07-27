@@ -1,3 +1,5 @@
+import { sanitizeSpreadsheetPayload } from "../utils/sanitize.js";
+
 /**
  * Send data to Google Apps Script
  * @param {Object} payload
@@ -5,6 +7,11 @@
  */
 export const sendToAppsScript = async (payload) => {
     try {
+        // This is the last boundary before Apps Script writes form data to
+        // Google Sheets. Escape every text value here so no caller can bypass
+        // spreadsheet formula protection.
+        const spreadsheetSafePayload = sanitizeSpreadsheetPayload(payload);
+
         // Read this after dotenv has been initialized. ESM imports are evaluated
         // before server.js reaches dotenv.config(), so a module-level value can
         // otherwise be captured as undefined.
@@ -19,8 +26,8 @@ export const sendToAppsScript = async (payload) => {
         
         info('sendToAppsScript: Attempting to send data', { 
             url: appsScriptUrl,
-            formType: payload.formType,
-            hasData: !!payload
+            formType: spreadsheetSafePayload.formType,
+            hasData: !!spreadsheetSafePayload
         });
 
         const response = await fetch(appsScriptUrl, {
@@ -28,7 +35,7 @@ export const sendToAppsScript = async (payload) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(payload),
+            body: JSON.stringify(spreadsheetSafePayload),
         });
 
         info(`sendToAppsScript: Response received with status ${response.status}`);

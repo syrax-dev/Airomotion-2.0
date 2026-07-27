@@ -1,24 +1,110 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-IN">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="AIROMOTION is a premium smart-living consultancy providing elite automation, security, and energy management solutions for luxury architectural homes." />
+  <meta name="description" content="Airomotion delivers smart home automation, security, and energy-management solutions for homes and businesses in India." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="canonical" href="https://airomotion.com/" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Airomotion" />
+  <meta property="og:title" content="Airomotion | Smart Automation, Security & Energy Solutions" />
+  <meta property="og:description" content="Smart home automation, security, and energy-management solutions designed around your space." />
+  <meta property="og:url" content="https://airomotion.com/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Airomotion | Smart Automation, Security & Energy Solutions" />
+  <meta name="twitter:description" content="Smart home automation, security, and energy-management solutions designed around your space." />
+  <style>
+    html,
+    body,
+    #root {
+      min-height: 100%;
+      margin: 0;
+    }
+
+    .app-boot-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      background: #000;
+      color: #fff;
+    }
+
+    .app-boot-loader__content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .app-boot-loader__spinner {
+      width: 3rem;
+      height: 3rem;
+      border: 2px solid rgba(255, 255, 255, 0.22);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: app-boot-spin 0.9s linear infinite;
+    }
+
+    .app-boot-loader__brand {
+      margin-top: 1.15rem;
+      font-family: Arial, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.34em;
+      line-height: 1;
+      text-indent: 0.34em;
+    }
+
+    @keyframes app-boot-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .app-boot-loader__spinner { animation: none; }
+    }
+  </style>
 
   <!-- FavIcon -->
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="shortcut icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <meta name="apple-mobile-web-app-title" content="AIROMOTION" />
+  <meta name="apple-mobile-web-app-title" content="Airomotion" />
   <link rel="manifest" href="/site.webmanifest" />
-  <title>AIROMOTION | Premium Smart Living Solutions</title>
+  <title>Airomotion | Smart Automation, Security & Energy Solutions</title>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Airomotion",
+      "url": "https://airomotion.com/",
+      "logo": "https://airomotion.com/airomotion_light.png",
+      "email": "connect@airomotion.com",
+      "sameAs": [
+        "https://www.facebook.com/airomotion",
+        "https://www.instagram.com/airomotion",
+        "https://x.com/airomotion"
+      ]
+    }
+  </script>
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <div class="app-boot-loader" role="status" aria-live="polite" aria-label="Loading Airomotion">
+      <div class="app-boot-loader__content">
+        <div class="app-boot-loader__spinner" aria-hidden="true"></div>
+        <span class="app-boot-loader__brand">AIROMOTION</span>
+      </div>
+    </div>
+  </div>
+  <script src="/runtime-config.js"></script>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 

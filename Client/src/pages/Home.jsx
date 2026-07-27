@@ -1,37 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
+import ImageFader from '../components/ImageFader';
 import './Home.css';
 
+// Section images
+import AutomationHall from '../assets/images/sections/Automation/Automation_Hall.webp';
+import AutomationKitchen from '../assets/images/sections/Automation/Automation_Kitchen.webp';
+import SecurityVideoBell from '../assets/images/sections/Security/Security_Video-Bell.webp';
+import SecurityDoorLock from '../assets/images/sections/Security/Security_Door-Lock.webp';
+import EnergySolar from '../assets/images/sections/Energy/Energy_Solar.webp';
+import EnergyUPS from '../assets/images/sections/Energy/Energy_UPS.webp';
+import heroVideo from '../assets/videos/HeroVideo.webm';
+
 const Home = () => {
-  const [activeScene, setActiveScene] = useState(0); // 0 = Automation, 1 = Security, 2 = Energy
-
-  // Auto-scroll hero background simulation every 7 seconds
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveScene((prev) => (prev + 1) % 3);
-    }, 7000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const heroScenes = [
-    {
-      class: 'scene-automation',
-      title: 'Automation.',
-      desc: 'Seamless motorized shading, smart lighting, and centralized environment control.',
-    },
-    {
-      class: 'scene-security',
-      title: 'Security.',
-      desc: 'High-definition biometric entry, automated perimeter gates, and real-time CCTV feeds.',
-    },
-    {
-      class: 'scene-energy',
-      title: 'Energy.',
-      desc: 'Smart hybrid UPS routing, solar collection grids, and intelligent energy storage.',
-    }
-  ];
-
   const clientStories = [
     {
       cat: 'Smart Home Technology',
@@ -41,12 +23,12 @@ const Home = () => {
     {
       cat: 'Smart Security',
       q: 'The boom barrier and CCTV package was installed in two days. The app view is sharp and the night vision is the real deal.',
-      a: 'Society RWA, Whitefield'
+      a: 'Neel Desai, Appartment'
     },
     {
       cat: 'Energy Solution',
       q: 'Our solar hybrid UPS has paid for itself in peace of mind alone. Two power cuts last week — we never noticed.',
-      a: 'Dr. Kavitha N., Independent House'
+      a: 'Dr. Kavitha, Clinic'
     }
   ];
 
@@ -54,15 +36,9 @@ const Home = () => {
     <div className="home-page-container">
       {/* 1. HERO SECTION */}
       <section className="hero-section">
-        {/* Simulated Camera Move & View Video Backgrounds */}
-        <div className="hero-bg-simulation">
-          {heroScenes.map((scene, index) => (
-            <div 
-              key={index} 
-              className={`hero-scene ${scene.class} ${index === activeScene ? 'active' : ''}`}
-            ></div>
-          ))}
-        </div>
+        <video className="hero-video" autoPlay muted loop playsInline aria-hidden="true">
+          <source src={heroVideo} type="video/webm" />
+        </video>
         <div className="hero-overlay"></div>
 
         <div className="container">
@@ -76,7 +52,7 @@ const Home = () => {
                 &amp; Relax.
               </h1>
               <p className="hero-desc">
-                {heroScenes[activeScene].desc}
+                Intelligent automation, connected security, and reliable energy solutions—designed to make every space work beautifully.
               </p>
               
               <div className="hero-buttons">
@@ -89,28 +65,6 @@ const Home = () => {
               </div>
             </ScrollReveal>
           </div>
-        </div>
-
-        {/* Scene Navigation Selector Buttons */}
-        <div className="hero-scene-nav">
-          <button 
-            className={`scene-nav-btn ${activeScene === 0 ? 'active' : ''}`}
-            onClick={() => setActiveScene(0)}
-          >
-            Automation
-          </button>
-          <button 
-            className={`scene-nav-btn ${activeScene === 1 ? 'active' : ''}`}
-            onClick={() => setActiveScene(1)}
-          >
-            Security
-          </button>
-          <button 
-            className={`scene-nav-btn ${activeScene === 2 ? 'active' : ''}`}
-            onClick={() => setActiveScene(2)}
-          >
-            Energy
-          </button>
         </div>
       </section>
 
@@ -148,12 +102,8 @@ const Home = () => {
             {/* Pillar 01: Smart Automation */}
             <ScrollReveal animation="reveal-on-scroll" className="cat-card">
               <div className="cat-media">
-                <img 
-                  src="/automation.webp" 
-                  alt="Smart Automation" 
-                  loading="lazy" 
-                />
-              </div>
+                  <ImageFader images={[AutomationHall, AutomationKitchen]} alt="Smart Automation" interval={5500} />
+                </div>
               <div className="cat-body">
                 <p className="eyebrow">01 — SMART AUTOMATION</p>
                 <h3 className="h2 cat-title">Spaces that move with you.</h3>
@@ -175,12 +125,8 @@ const Home = () => {
             {/* Pillar 02: Smart Security */}
             <ScrollReveal animation="reveal-on-scroll" delay="delay-2" className="cat-card">
               <div className="cat-media">
-                <img 
-                  src="/security.webp" 
-                  alt="Smart Security" 
-                  loading="lazy" 
-                />
-              </div>
+                  <ImageFader images={[SecurityVideoBell, SecurityDoorLock]} alt="Smart Security" interval={5500} />
+                </div>
               <div className="cat-body">
                 <p className="eyebrow">02 — SMART SECURITY</p>
                 <h3 className="h2 cat-title">Protection, made invisible.</h3>
@@ -202,12 +148,8 @@ const Home = () => {
             {/* Pillar 03: Energy Management */}
             <ScrollReveal animation="reveal-on-scroll" delay="delay-3" className="cat-card">
               <div className="cat-media">
-                <img 
-                  src="/energy.webp"
-                  alt="Energy Management" 
-                  loading="lazy" 
-                />
-              </div>
+                  <ImageFader images={[EnergySolar, EnergyUPS]} alt="Energy Management" interval={5500} />
+                </div>
               <div className="cat-body">
                 <p className="eyebrow">03 — ENERGY MANAGEMENT</p>
                 <h3 className="h2 cat-title">Power on your terms.</h3>
@@ -303,7 +245,7 @@ const Home = () => {
       {/* 7. CTA SECTION */}
       <section className="home-cta-section">
         {/* Dark background image with overlay */}
-        <div className="home-cta-bg" style={{ backgroundImage: 'url(/cta-bg.webp)' }} />
+        <div className="home-cta-bg" style={{ backgroundImage: 'url(/src/assets/images/sections/cta-bg.webp)' }} />
         <div className="home-cta-overlay" />
 
         {/* Content */}

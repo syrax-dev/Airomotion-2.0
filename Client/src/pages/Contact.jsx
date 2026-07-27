@@ -3,6 +3,16 @@ import ScrollReveal from '../components/ScrollReveal';
 import './Contact.css';
 import { submitEnquiry } from '../api/api';
 
+const sanitizeClientText = (value) => {
+  if (typeof value !== 'string') return '';
+  return value
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/javascript:/gi, '')
+    .replace(/on\w+\s*=\s*/gi, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+};
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -84,6 +94,7 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const honeypot = e.currentTarget.elements.website?.value || '';
     const allTouched = {};
     Object.keys(formData).forEach(key => { allTouched[key] = true; });
     setTouched(allTouched);
@@ -96,12 +107,13 @@ const Contact = () => {
       setErrors({});
       try {
         const payload = {
-          name: formData.fullName,
-          phone: formData.phone.replace(/\D/g, ''),
-          email: formData.email,
-          productCategory: formData.productCategory,
-          propertyType: formData.propertyType,
-          message: formData.message,
+          name: sanitizeClientText(formData.fullName),
+          phone: sanitizeClientText(formData.phone.replace(/\D/g, '')),
+          email: sanitizeClientText(formData.email).toLowerCase(),
+          productCategory: sanitizeClientText(formData.productCategory),
+          propertyType: sanitizeClientText(formData.propertyType),
+          message: sanitizeClientText(formData.message),
+          website: honeypot,
         };
         await submitEnquiry(payload);
         setErrors({});
@@ -195,6 +207,14 @@ const Contact = () => {
                 </div>
               ) : (
                 <form className="ct-form-card ct-form" onSubmit={handleSubmit} noValidate>
+                  <input
+                    className="honeypot-field"
+                    type="text"
+                    name="website"
+                    tabIndex="-1"
+                    autoComplete="off"
+                    aria-hidden="true"
+                  />
 
                   {/* Full Name + Phone */}
                   <div className="ct-row">
@@ -268,7 +288,14 @@ const Contact = () => {
                   <div className="ct-submit-row">
                     {errors.form && <div className="ct-error" style={{ marginBottom: '0.5rem' }}>{errors.form}</div>}
                     <button type="submit" className="ct-submit-btn" disabled={isLoading}>
-                      {isLoading ? 'Sending…' : 'Send Enquiry'} <span>→</span>
+                      {isLoading ? (
+                        <>
+                          <span className="btn-spinner" aria-hidden="true"></span>
+                          Sending…
+                        </>
+                      ) : (
+                        <>Send Enquiry <span>→</span></>
+                      )}
                     </button>
                   </div>
 

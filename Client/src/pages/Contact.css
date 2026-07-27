@@ -278,8 +278,42 @@
   transition: transform 0.3s ease;
 }
 
-.ct-submit-btn:hover span {
+.ct-submit-btn:hover span:not(.btn-spinner) {
   transform: translateX(4px);
+}
+
+.ct-submit-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-spinner,
+.ct-submit-btn .btn-spinner,
+.form-submit .btn-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spinner-rotate 0.8s linear infinite;
+}
+
+.ct-submit-btn .btn-spinner {
+  display: inline-flex;
+  box-sizing: border-box;
+  flex: 0 0 16px;
+  margin: 0;
+  animation: spinner-rotate 0.8s linear infinite !important;
+  transition: none !important;
+  will-change: transform;
+}
+
+@keyframes spinner-rotate {
+  to { transform: rotate(360deg); }
 }
 
 .ct-success {

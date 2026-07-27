@@ -1,44 +1,64 @@
+import "./config/env.js";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import dotenv from "dotenv";
 import { requestLogger, info, warn } from "./utils/logger.js";
-import { ENDPOINTS } from "./utils/constants.js";
+import {
+    ENDPOINTS,
+    MAX_REQUEST_BODY_SIZE,
+    MAX_URLENCODED_PARAMETERS,
+} from "./utils/constants.js";
+import { createCorsOptions, getAllowedCorsOrigins } from "./middleware/cors.middleware.js";
 
 import limiter from "./middleware/rateLimiter.js";
 import routes from "./routes/index.js";
 import errorHandler from "./middleware/error.middleware.js";
 
-// app.js is imported before server.js reaches dotenv.config() because ESM
-// dependencies are evaluated first. Load it here before reading CLIENT_URL for
-// the CORS configuration.
-dotenv.config();
-
 const app = express();
+
+// The API is deployed behind one reverse proxy. This makes req.ip (and thus
+// the rate-limit key) the real client IP rather than the proxy's address.
+// Set TRUST_PROXY_HOPS if the deployment has a different proxy depth.
+const trustProxyHops = Number.parseInt(process.env.TRUST_PROXY_HOPS ?? "1", 10);
+app.set("trust proxy", Number.isInteger(trustProxyHops) && trustProxyHops >= 0 ? trustProxyHops : 1);
 
 app.use(helmet());
 
-app.use(
-    cors({
-        origin: process.env.CLIENT_URL,
-        credentials: true,
-    })
-);
+const allowedCorsOrigins = getAllowedCorsOrigins();
+app.use(cors(createCorsOptions(allowedCorsOrigins)));
 
 // lightweight request logging (app-level)
 app.use(requestLogger);
 app.use(morgan("dev"));
 
-app.use(express.json({ limit: "15mb" }));
-app.use(express.urlencoded({ extended: true }));
-
+// Apply the broad per-IP limit before any body is parsed. Route-specific
+// submission/upload limiters provide the stricter limits below.
 app.use(limiter);
+
+// JSON and URL-encoded form submissions are intentionally small. Multipart
+// invoice uploads bypass these parsers and are limited separately by multer.
+app.use(express.json({ limit: MAX_REQUEST_BODY_SIZE, strict: true }));
+app.use(express.urlencoded({
+    extended: false,
+    limit: MAX_REQUEST_BODY_SIZE,
+    parameterLimit: MAX_URLENCODED_PARAMETERS,
+}));
 
 app.get("/", (req, res) => {
     res.status(200).json({
         success: true,
         message: "AIROMOTION Backend Running 🚀",
+    });
+});
+
+// Liveness endpoint for infrastructure checks and an external uptime monitor.
+// It intentionally does not call Apps Script, Drive, or ClamAV.
+app.get("/health", (req, res) => {
+    res.set("Cache-Control", "no-store");
+    res.status(200).json({
+        success: true,
+        status: "ok",
     });
 });
 
