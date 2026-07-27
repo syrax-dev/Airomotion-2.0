@@ -1,16 +1,32 @@
 # Production image for the AIROMOTION API. Build from the Server directory.
-FROM node:22-alpine
+
+FROM node:22-bookworm
+
+# Install ClamAV
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        clamav \
+        clamav-daemon && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm ci --omit=dev && npm cache clean --force
+# Install dependencies
+COPY package*.json ./
+RUN npm ci --omit=dev
 
-COPY src ./src
+# Copy application
+COPY . .
 
-ENV NODE_ENV=production \
-    PORT=10000
+# Update ClamAV database
+RUN freshclam || true
+
+# Copy startup script
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENV NODE_ENV=production
 
 EXPOSE 10000
 
-CMD ["npm", "start"]
+ENTRYPOINT ["docker-entrypoint.sh"]
