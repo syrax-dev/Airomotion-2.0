@@ -2,9 +2,9 @@
 
 The server is the private integration boundary for the AIROMOTION website. It
 accepts customer enquiries and product registrations from the React client,
-validates and protects the input, scans uploaded invoice PDFs, then sends the
-approved data to the deployed Google Apps Script. The Apps Script writes to
-Google Sheets and creates invoice files in Google Drive.
+validates them, verifies invoice PDFs, and sends approved data to the deployed
+Google Apps Script. The Apps Script writes to Google Sheets and creates invoice
+files in Google Drive.
 
 The browser must never receive the Apps Script URL, Drive folder ID, or any
 other integration secret. Those values belong only in this service's runtime
@@ -15,7 +15,6 @@ environment.
 - Node.js with Express 5.
 - `express-validator` for server-side form validation.
 - Multer memory storage for the single invoice PDF upload.
-- ClamAV's INSTREAM protocol for mandatory malware scanning.
 - Helmet, strict CORS, request/body limits, rate limiting and a honeypot for
   layered request protection.
 - Google Apps Script as the outbound persistence integration.
@@ -28,21 +27,12 @@ Server/
 │   ├── routes/                # /api/enquiry and /api/product-registration
 │   ├── controllers/           # Validated request → Apps Script payload
 │   ├── validators/            # Per-field validation rules
-│   ├── middleware/            # CORS, limits, upload, scan and error handling
-│   ├── services/              # Apps Script, invoice encoding and ClamAV
+│   ├── middleware/            # CORS, limits, upload and error handling
+│   ├── services/              # Apps Script and invoice encoding
 │   └── utils/                 # Sanitization, logging and response helpers
 ├── test/                      # Node built-in test runner tests
-├── Dockerfile                 # Production Node image
-└── .dockerignore              # Keeps secrets/tests/dependencies out of image context
+└── Dockerfile                 # Lightweight production Node image
 ```
-
-## Prerequisites
-
-- Node.js 22 or later recommended.
-- pnpm (the repository includes `pnpm-lock.yaml`) or npm.
-- A reachable ClamAV daemon for product-registration uploads.
-- A deployed Google Apps Script endpoint that accepts the documented payloads.
-- Docker, only for container builds/runs.
 
 ## Local development
 
@@ -59,12 +49,6 @@ TRUST_PROXY_HOPS=1
 # Server-only integrations.
 APPS_SCRIPT_URL=YOUR_APPS_SCRIPT_WEB_APP_URL
 GOOGLE_DRIVE_INVOICES_FOLDER_ID=YOUR_DRIVE_FOLDER_ID
-
-# Required for invoice uploads. Use either a Unix socket OR host/port.
-CLAMAV_HOST=127.0.0.1
-CLAMAV_PORT=3310
-CLAMAV_TIMEOUT_MS=10000
-# CLAMAV_SOCKET=/var/run/clamav/clamd.ctl
 ```
 
 Then run:
@@ -98,12 +82,6 @@ curl http://localhost:5000/health
 | `TRUST_PROXY_HOPS` | No | Reverse-proxy depth; defaults to `1`, which is appropriate for Render. |
 | `APPS_SCRIPT_URL` | Yes for form persistence | Deployed Google Apps Script web-app URL that receives the JSON payload. |
 | `GOOGLE_DRIVE_INVOICES_FOLDER_ID` | Yes for registrations | Drive folder ID passed to Apps Script for invoice storage. |
-| `CLAMAV_HOST` + `CLAMAV_PORT` | One scanner option | Host and port for a reachable `clamd` service; default port is `3310`. |
-| `CLAMAV_SOCKET` | Alternative scanner option | Unix socket path for a local `clamd`; takes precedence over host/port. |
-| `CLAMAV_TIMEOUT_MS` | No | Scanner timeout in milliseconds; defaults to `10000`. |
-
-Without a valid ClamAV configuration or reachable scanner, product-registration
-uploads fail closed with `503`; they are never sent to Apps Script unscanned.
 
 ## HTTP API
 
@@ -140,17 +118,19 @@ precede purchase.
 
 `invoicePdf` must be one genuine `application/pdf` file with a `.pdf`
 extension, PDF header/trailer markers, and a maximum size of 5 MB. The API
-checks metadata and content before scanning it.
+checks file metadata and content before processing it. It does not perform
+malware scanning; ensure uploads are restricted to trusted users and retain
+the existing size/type/content checks.
 
 Both forms may include a hidden `website` field. If it is populated, the API
-returns `204` and intentionally does no validation, scanning, storage, or
-outbound request; this is the honeypot anti-bot control.
+returns `204` and intentionally does no validation, storage, or outbound
+request; this is the honeypot anti-bot control.
 
 ## Request flow and safety controls
 
 ```text
 Browser → CORS / Helmet / global limiter → route limiter → validation
-        → (registration only: PDF checks → ClamAV scan)
+        → (registration only: PDF type and structure checks)
         → input + spreadsheet formula sanitization → Google Apps Script
         → Google Sheets / Google Drive
 ```
@@ -172,8 +152,9 @@ successful submission.
 
 ## Production Docker image
 
-The image installs production dependencies only and runs `node src/server.js`.
-It does not contain the local `.env`, credentials directory, or test suite.
+The Docker image uses `node:22-alpine`, installs only production dependencies,
+and runs `node src/server.js`. It has no antivirus daemon, virus database, or
+startup delay, which keeps memory use suitable for small Render instances.
 
 From the repository root:
 
@@ -185,14 +166,8 @@ docker run --rm -p 5000:5000 \
   -e CLIENT_URL=https://your-frontend.onrender.com \
   -e APPS_SCRIPT_URL=YOUR_APPS_SCRIPT_WEB_APP_URL \
   -e GOOGLE_DRIVE_INVOICES_FOLDER_ID=YOUR_DRIVE_FOLDER_ID \
-  -e CLAMAV_HOST=host.docker.internal \
-  -e CLAMAV_PORT=3310 \
   airomotion-server
 ```
-
-The container needs network access to ClamAV. `host.docker.internal` is often
-useful for local Docker Desktop; in production use the hostname reachable from
-the service. Do not add service-account files or `.env` files to the image.
 
 ## Render deployment
 
@@ -205,29 +180,19 @@ Deploy this as a separate **Web Service** using Docker.
 | Dockerfile | `Dockerfile` (the default relative to the root directory) |
 | Health Check Path | `/health` |
 
-Add the production environment variables from the table above. At minimum,
-set `NODE_ENV=production`, `CLIENT_URL`, `APPS_SCRIPT_URL`, and
-`GOOGLE_DRIVE_INVOICES_FOLDER_ID`; additionally provide a network-reachable
-ClamAV host/port if product registration is enabled.
-
+Set `NODE_ENV=production`, `CLIENT_URL`, `APPS_SCRIPT_URL`, and
+`GOOGLE_DRIVE_INVOICES_FOLDER_ID`. Render supplies `PORT` automatically.
 Render's service is behind a reverse proxy, so retain `TRUST_PROXY_HOPS=1`.
+
 After the frontend service receives its public URL, set `CLIENT_URL` to that
 exact origin. After the backend receives its public URL, set the client's
 `VITE_API_URL` to `https://<backend>.onrender.com/api`.
-
-Important: a separate Render Web Service is not automatically a ClamAV daemon.
-If uploads are enabled, provision a reachable scanner (for example a dedicated
-private service) and ensure Render networking/firewall rules permit the API to
-reach it. Do not disable the scanner merely to make registrations succeed.
 
 ## Troubleshooting
 
 - **Backend will not boot in production:** set a valid non-wildcard `CLIENT_URL`.
 - **Browser gets CORS/403:** the frontend origin does not exactly match
   `CLIENT_URL`; check protocol, hostname, and custom-domain changes.
-- **Registration gets 503:** ClamAV is unset, unreachable, too slow, or returns
-  an invalid response. Inspect the service logs and scanner connectivity.
-- **Registration gets 422:** ClamAV detected malware in the uploaded PDF.
 - **Registration gets 400/413:** verify PDF extension/content/type and the
   5 MB limit; also check the required form fields and ISO dates.
 - **Form request succeeds at the API but data is missing:** validate
@@ -250,6 +215,6 @@ docker run --rm -p 5000:5000 \
 curl http://localhost:5000/health
 ```
 
-The final smoke test only checks liveness; it intentionally does not call
-Apps Script or ClamAV. Keep all real secrets in Render environment variables
-or another approved secret manager, never in Git.
+The smoke test only checks liveness; it intentionally does not call Apps
+Script. Keep all real secrets in Render environment variables or another
+approved secret manager, never in Git.

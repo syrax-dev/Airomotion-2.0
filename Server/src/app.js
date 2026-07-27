@@ -53,7 +53,7 @@ app.get("/", (req, res) => {
 });
 
 // Liveness endpoint for infrastructure checks and an external uptime monitor.
-// It intentionally does not call Apps Script, Drive, or ClamAV.
+// It intentionally does not call Apps Script or Drive.
 app.get("/health", (req, res) => {
     res.set("Cache-Control", "no-store");
     res.status(200).json({

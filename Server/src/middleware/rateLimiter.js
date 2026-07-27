@@ -28,7 +28,7 @@ export const globalLimiter = rateLimit({
 });
 
 // Per-IP form submission limits. These route middleware run before validation,
-// upload buffering, malware scanning, and any outbound request.
+// upload buffering, and any outbound request.
 export const enquiryLimiter = createSubmissionLimiter({
     max: 10,
     message: "Too many enquiry requests. Please try again in a minute.",
