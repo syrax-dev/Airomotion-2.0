@@ -70,6 +70,10 @@ It can be supplied in either of these ways:
    over a build-time Vite variable. This means the image can be reused with a
    different API URL without rebuilding it.
 
+In production, `VITE_API_URL` is required. The client deliberately does not
+fall back to `localhost` outside a local browser, because `localhost` would
+refer to each visitor's own computer rather than the Render API service.
+
 `VITE_API_URL` is intentionally visible to every browser visitor. Never put
 credentials, Google Apps Script URLs, private keys, or any secret in a
 `VITE_*` variable.

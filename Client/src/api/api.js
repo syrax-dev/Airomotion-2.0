@@ -1,14 +1,31 @@
 import axios from "axios";
 
-// Vite embeds VITE_* values into the browser bundle. This setting is limited
-// to the public API origin; never add secrets, Apps Script URLs, or API keys
-// here. Backend integrations belong in server-side environment variables.
-const runtimeApiUrl = globalThis.__APP_CONFIG__?.VITE_API_URL;
-const apiBaseUrl = (runtimeApiUrl || import.meta.env.VITE_API_URL || "http://localhost:5000/api")
+// The Docker startup script provides VITE_API_URL at runtime. A Vite variable
+// is also supported for non-Docker deployments. Neither value is secret: this
+// is the browser-facing API origin only.
+const runtimeApiUrl = globalThis.__APP_CONFIG__?.VITE_API_URL?.trim();
+const buildTimeApiUrl = import.meta.env.VITE_API_URL?.trim();
+const isLocalBrowser = ["localhost", "127.0.0.1", "::1"].includes(
+    globalThis.location?.hostname,
+);
+
+// Local development works without configuration. A deployed browser must be
+// given its public API URL; it must never try to call the visitor's localhost.
+const apiBaseUrl = (runtimeApiUrl || buildTimeApiUrl || (isLocalBrowser ? "http://localhost:5000/api" : ""))
     .replace(/\/$/, "");
 
 const api = axios.create({
     baseURL: apiBaseUrl,
+});
+
+api.interceptors.request.use((config) => {
+    if (!apiBaseUrl) {
+        return Promise.reject(new Error(
+            "API is not configured. Set VITE_API_URL to the public backend URL, including /api.",
+        ));
+    }
+
+    return config;
 });
 
 const submitEnquiry = (data) => api.post('/enquiry', data);
