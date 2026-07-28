@@ -79,6 +79,13 @@ const Home = () => {
             </ScrollReveal>
           </div>
         </div>
+
+        <a className="hero-scroll-cue" href="#what-we-do">
+          <span className="hero-scroll-cue__label">Scroll to explore</span>
+          <span className="hero-scroll-cue__mouse" aria-hidden="true">
+            <span className="hero-scroll-cue__wheel"></span>
+          </span>
+        </a>
       </section>
 
       {/* 2. PRODUCT MARQUEE */}
@@ -97,7 +104,7 @@ const Home = () => {
       </div>
 
       {/* 3. WHAT WE DO SECTION */}
-      <section className="section">
+      <section className="section" id="what-we-do">
         <div className="container">
           <ScrollReveal animation="reveal-on-scroll" className="what-we-do-head">
             <p className="eyebrow">What We Do</p>
