@@ -68,7 +68,10 @@ const Reveal = ({ children, delay = 0, className = '' }) => {
           observer.unobserve(domRef.current);
         }
       },
-      { threshold: 0.05 }
+      // On mobile this wrapper contains the full catalogue. Its height can be
+      // far greater than the viewport, so a percentage threshold can never be
+      // met and would leave the entire catalogue transparent.
+      { threshold: 0 }
     );
 
     const currentRef = domRef.current;
@@ -637,9 +640,10 @@ const Products = () => {
         </div>
       </section>
 
-      <section className="lx-section" style={{ paddingTop: 80 }}>
+      <section className="lx-section lx-product-section">
         <Reveal>
           <div className="lx-container">
+            <h2 className="lx-mobile-category-heading">Product Categories</h2>
             <div className="lx-tabs" role="tablist">
             {tabs.map(tab => (
               <button
