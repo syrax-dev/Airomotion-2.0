@@ -51,7 +51,7 @@ const About = () => {
               <span className="about-story-eyebrow">Our Story</span>
               <h2 className="about-story-headline">Designed by the people who live with it.</h2>
               <p className="about-story-desc">
-                We started as a startup in Gandhinagar in 2024, offering electronics products r&d and manufacuring focused solely on electronics products. We expanded our services to a complete wireless automation solution, including curtain motorization, smart switches, sensors.
+                We started as a startup in Gandhinagar in 2021, offering electronics products r&d and manufacuring focused solely on electronics products. We expanded our services to a complete wireless automation solution, including curtain motorization, smart switches, sensors.
               </p>
               <p className="about-story-desc">
                 Airomotion provide smart IOT automation, smart Security, Energy Management products and solutions on the Indian market. we offer complete categories of smart devices, integrating advanced IoT technologies and form the base of both smart home solutions and other industrial solutions.
