@@ -32,6 +32,17 @@ app.use(cors(createCorsOptions(allowedCorsOrigins)));
 app.use(requestLogger);
 app.use(morgan("dev"));
 
+// Liveness endpoint for infrastructure checks and an external uptime monitor.
+// It intentionally does not call Apps Script or Drive.
+app.get("/health", (req, res) => {
+    res.set("Cache-Control", "no-store");
+    res.status(200).json({
+        success: true,
+        status: "ok",
+    });
+});
+
+
 // Apply the broad per-IP limit before any body is parsed. Route-specific
 // submission/upload limiters provide the stricter limits below.
 app.use(limiter);
@@ -49,16 +60,6 @@ app.get("/", (req, res) => {
     res.status(200).json({
         success: true,
         message: "AIROMOTION Backend Running 🚀",
-    });
-});
-
-// Liveness endpoint for infrastructure checks and an external uptime monitor.
-// It intentionally does not call Apps Script or Drive.
-app.get("/health", (req, res) => {
-    res.set("Cache-Control", "no-store");
-    res.status(200).json({
-        success: true,
-        status: "ok",
     });
 });
 
