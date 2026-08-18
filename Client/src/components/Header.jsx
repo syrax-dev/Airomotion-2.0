@@ -128,7 +128,7 @@ const Header = () => {
 
           {/* Primary CTA Button (Desktop) */}
           <a
-            href="/airomotion.pdf"
+            href="/Airomotion.pdf"
             target="_blank"
             rel="noopener noreferrer"
             download
@@ -196,7 +196,7 @@ const Header = () => {
         </div>
 
         <a
-          href="/airomotion.pdf"
+          href="/Airomotion.pdf"
           target="_blank"
           rel="noopener noreferrer"
           download
