@@ -359,22 +359,13 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 154px;
+  width: 135px;
   height: 1px;
   background: var(--text-black);
 }
 
-.cat-link .cat-link-arrow {
-  display: inline-block;
-  transition: transform 0.3s ease;
-}
-
 .cat-link:hover {
   opacity: 0.7;
-}
-
-.cat-link:hover .cat-link-arrow {
-  transform: translateX(4px);
 }
 
 @media (max-width: 880px) {
@@ -770,15 +761,6 @@
 .home-cta-btn:focus-visible {
   outline: 2px solid #ffffff;
   outline-offset: 5px;
-}
-
-.home-cta-arrow {
-  font-size: 1rem;
-  transition: transform 0.3s ease;
-}
-
-.home-cta-btn:hover .home-cta-arrow {
-  transform: translateX(4px);
 }
 
 /* Responsive Grid layouts */

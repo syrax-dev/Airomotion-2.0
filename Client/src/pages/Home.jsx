@@ -137,7 +137,7 @@ const Home = () => {
                   <li>Curtains & Shades</li>
                 </ul>
                 <Link to="/products?category=automation" className="cat-link">
-                  Explore Range <span className="cat-link-arrow">→</span>
+                  Explore Range
                 </Link>
               </div>
             </ScrollReveal>
@@ -160,7 +160,7 @@ const Home = () => {
                   <li>Gate Automation</li>
                 </ul>
                 <Link to="/products?category=security" className="cat-link">
-                  Explore Range <span className="cat-link-arrow">→</span>
+                  Explore Range
                 </Link>
               </div>
             </ScrollReveal>
@@ -183,7 +183,7 @@ const Home = () => {
                   <li>Energy Monitoring</li>
                 </ul>
                 <Link to="/products?category=energy" className="cat-link">
-                  Explore Range <span className="cat-link-arrow">→</span>
+                  Explore Range
                 </Link>
               </div>
             </ScrollReveal>
@@ -277,7 +277,7 @@ const Home = () => {
               Meet our design team at our studio, on-site, or virtually. We'll walk through your space, your routines, and what intelligent living should feel like for you.
             </p>
             <Link to="/contact" className="home-cta-btn">
-              Get Consultation <span className="home-cta-arrow">→</span>
+              Get Consultation
             </Link>
           </ScrollReveal>
         </div>

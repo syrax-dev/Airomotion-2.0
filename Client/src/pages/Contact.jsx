@@ -294,7 +294,7 @@ const Contact = () => {
                           Sending…
                         </>
                       ) : (
-                        <>Send Enquiry <span>→</span></>
+                        <>Send Enquiry</>
                       )}
                     </button>
                   </div>

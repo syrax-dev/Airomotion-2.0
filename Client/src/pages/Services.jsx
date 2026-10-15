@@ -588,7 +588,7 @@ const Services = () => {
                       Submitting…
                     </>
                   ) : (
-                    <>Submit Registration <span className="btn-arrow-inline">→</span></>
+                    <>Submit Registration</>
                   )}
                 </button>
               </div>
