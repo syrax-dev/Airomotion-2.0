@@ -55,9 +55,9 @@ export default function CatalogueFlipbook() {
           width={PAGE_WIDTH}
           height={PAGE_HEIGHT}
           size="stretch"
-          minWidth={280}
+          minWidth={220}
           maxWidth={PAGE_WIDTH}
-          minHeight={396}
+          minHeight={311}
           maxHeight={PAGE_HEIGHT}
           drawShadow
           maxShadowOpacity={0.42}

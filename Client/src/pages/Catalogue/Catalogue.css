@@ -4,6 +4,7 @@
 
 .catalogue-page {
   min-height: 100vh;
+  min-height: 100svh;
 
   background:
     radial-gradient(
@@ -15,10 +16,7 @@
 
   color: #fff;
 
-  padding:
-    130px
-    24px
-    80px;
+  padding: 130px 24px max(80px, env(safe-area-inset-bottom));
 }
 
 
@@ -28,6 +26,7 @@
 
 .catalogue-page__content {
   width: min(1400px, 100%);
+  min-width: 0;
 
   margin: 0 auto;
 
@@ -99,10 +98,7 @@
 @media (max-width: 700px) {
 
   .catalogue-page {
-    padding:
-      100px
-      16px
-      50px;
+    padding: 88px 16px max(40px, env(safe-area-inset-bottom));
   }
 
 
@@ -112,7 +108,7 @@
 
 
   .catalogue-page__heading h1 {
-    font-size: 38px;
+    font-size: clamp(30px, 8vw, 38px);
   }
 
 
@@ -120,4 +116,11 @@
     font-size: 14px;
   }
 
+}
+
+@media (max-width: 380px) {
+  .catalogue-page { padding-right: 10px; padding-left: 10px; }
+  .catalogue-page__content { gap: 22px; }
+  .catalogue-page__eyebrow { margin-bottom: 10px; font-size: 9px; }
+  .catalogue-page__heading p { margin-top: 12px; }
 }
