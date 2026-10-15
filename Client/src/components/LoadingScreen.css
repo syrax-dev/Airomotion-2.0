@@ -1,87 +1,347 @@
+/* =========================================================
+   KINGRED MODERN FONT
+========================================================= */
+
+@font-face {
+  font-family: 'Kingred Modern';
+  src: url('/fonts/KingredModern.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* =========================================================
+   LOADING SCREEN
+========================================================= */
+
 .loading-screen {
-  display: grid;
   position: fixed;
   inset: 0;
-  z-index: 1100;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
   min-height: 100vh;
-  place-items: center;
+  margin: 0;
+  padding: 0;
+  background: #000;
+  color: #fff;
   overflow: hidden;
-  background: var(--bg-black);
-  color: var(--text-white);
+  opacity: 0;
+  visibility: visible;
+  filter: blur(12px);
+  animation:
+    screenFadeIn
+    1.2s
+    ease
+    forwards;
+  pointer-events: auto;
 }
 
-.loading-screen__mark {
-  position: relative;
-  width: 3.4rem;
-  height: 3.4rem;
-  animation: loading-screen-enter 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
 
-.loading-screen__ring {
-  position: absolute;
-  inset: 0;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 50%;
-}
-
-.loading-screen__ring--outer {
-  border-top-color: var(--text-white);
-  animation: loading-screen-spin 1.4s linear infinite;
-}
-
-.loading-screen__ring--inner {
-  inset: 0.58rem;
-  border-right-color: var(--text-white);
-  animation: loading-screen-spin 1.1s linear infinite reverse;
-}
-
-.loading-screen__core {
-  position: absolute;
-  inset: 50% auto auto 50%;
-  width: 0.28rem;
-  height: 0.28rem;
-  border-radius: 50%;
-  background: var(--text-white);
-  transform: translate(-50%, -50%);
-  animation: loading-screen-pulse 1.4s ease-in-out infinite;
-}
+/* =========================================================
+   CONTENT
+========================================================= */
 
 .loading-screen__content {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  transform: scale(1.015);
+  filter: blur(8px);
+  animation:
+    contentFadeIn
+    0.9s
+    ease
+    0.1s
+    forwards;
 }
+
+
+/* =========================================================
+   AIROMOTION LOGO
+========================================================= */
+
+.loading-screen__logo {
+  display: block;
+  width: 240px;
+  height: 240px;
+  margin: 0;
+  padding: 0;
+  object-fit: contain;
+  object-position: center;
+  flex-shrink: 0;
+  opacity: 0;
+  transform: scale(0.82);
+  filter: blur(8px);
+  animation:
+    logoReveal
+    0.7s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    0.65s
+    forwards;
+}
+
+
+/* =========================================================
+   AIROMOTION TEXT
+========================================================= */
 
 .loading-screen__brand {
-  margin-top: 1.2rem;
-  color: var(--text-white);
-  font-family: "Rajdhani", sans-serif;
-  font-size: 0.92rem;
-  font-weight: 600;
-  letter-spacing: 0.34em;
+  display: block;
+  font-family: 'Kingred Modern', serif;
+  font-size: 30px;
+  font-weight: 400;
   line-height: 1;
-  text-indent: 0.34em;
-  animation: loading-screen-enter 650ms 100ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  letter-spacing: 0.08em;
+  /*
+    Pull text upward because the PNG
+    contains transparent space.
+  */
+  margin: -42px 0 0 0;
+  padding: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(6px);
+  animation:
+    brandReveal
+    0.9s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    0.65s
+    forwards;
 }
 
-@keyframes loading-screen-spin {
-  to { transform: rotate(360deg); }
+
+/* =========================================================
+   SCREEN ENTRANCE
+========================================================= */
+
+@keyframes screenFadeIn {
+
+  0% {
+    opacity: 0;
+    filter: blur(12px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+
 }
 
-@keyframes loading-screen-pulse {
-  50% { transform: translate(-50%, -50%) scale(0.55); }
+
+/* =========================================================
+   CONTENT ENTRANCE
+========================================================= */
+
+@keyframes contentFadeIn {
+
+  0% {
+    opacity: 0;
+    transform: scale(1.015);
+    filter: blur(8px);
+  }
+  45% {
+    opacity: 0.7;
+    transform: scale(1.005);
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+
 }
 
-@keyframes loading-screen-enter {
-  from { opacity: 0; transform: translateY(0.5rem); }
-  to { opacity: 1; transform: translateY(0); }
+
+/* =========================================================
+   LOGO REVEAL
+========================================================= */
+
+@keyframes logoReveal {
+
+  0% {
+    opacity: 0;
+    transform: scale(0.82);
+    filter: blur(8px);
+  }
+  45% {
+    opacity: 0.8;
+    transform: scale(0.96);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+
 }
+
+
+/* =========================================================
+   BRAND TEXT REVEAL
+========================================================= */
+
+@keyframes brandReveal {
+
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(6px);
+    letter-spacing: 0.14em;
+  }
+  45% {
+    opacity: 0.75;
+    transform: translateY(3px);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+    letter-spacing: 0.08em;
+  }
+
+}
+
+
+/* =========================================================
+   EXIT
+   SOFT BLUR + SLOW FADE
+========================================================= */
+
+.loading-screen--exit {
+  animation:
+    screenFadeOut
+    1.2s
+    ease
+    forwards;
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   CONTENT EXIT
+========================================================= */
+
+.loading-screen--exit .loading-screen__content {
+  animation:
+    contentFadeOut
+    0.9s
+    ease
+    forwards;
+}
+
+
+/* =========================================================
+   CONTENT FADE OUT
+========================================================= */
+
+@keyframes contentFadeOut {
+
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+  45% {
+    opacity: 0.75;
+    transform: scale(1.005);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.015);
+    filter: blur(8px);
+  }
+
+}
+
+
+/* =========================================================
+   SCREEN FADE OUT
+========================================================= */
+
+@keyframes screenFadeOut {
+
+  0% {
+    opacity: 1;
+    filter: blur(0);
+    visibility: visible;
+  }
+  45% {
+    opacity: 0.85;
+    filter: blur(1px);
+  }
+  70% {
+    opacity: 0.45;
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(12px);
+    visibility: hidden;
+  }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .loading-screen__ring,
-  .loading-screen__core,
-  .loading-screen__mark,
-  .loading-screen__brand {
-    animation: none;
+
+  .loading-screen,
+  .loading-screen *,
+  .loading-screen--exit {
+    animation: none !important;
+    transition: none !important;
   }
+
+  .loading-screen {
+    opacity: 1;
+    filter: none;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .loading-screen__content {
+    gap: 0;
+  }
+
+  .loading-screen__logo {
+    width: 180px;
+    height: 180px;
+  }
+
+  .loading-screen__brand {
+    font-size: 24px;
+
+    letter-spacing: 0.07em;
+
+    margin: -32px 0 0 0;
+  }
+
 }

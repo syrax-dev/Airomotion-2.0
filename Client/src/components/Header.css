@@ -579,3 +579,54 @@
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
+
+/* The catalogue sits on a dark canvas, so keep its nav legible as dark glass. */
+.main-header.catalogue-header,
+.main-header.catalogue-header.scrolled {
+  background-color: rgba(8, 8, 8, 0.72);
+  backdrop-filter: saturate(160%) blur(18px);
+  -webkit-backdrop-filter: saturate(160%) blur(18px);
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.16);
+}
+
+.main-header.catalogue-header .nav-link,
+.main-header.catalogue-header.scrolled .nav-link {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.main-header.catalogue-header .nav-link:hover,
+.main-header.catalogue-header .nav-link.active,
+.main-header.catalogue-header.scrolled .nav-link:hover,
+.main-header.catalogue-header.scrolled .nav-link.active {
+  color: #fff;
+}
+
+.main-header.catalogue-header .nav-link::after,
+.main-header.catalogue-header.scrolled .nav-link::after {
+  background-color: #fff;
+}
+
+.main-header.catalogue-header .btn-outline-white,
+.main-header.catalogue-header.scrolled .btn-outline-white {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.42);
+}
+
+.main-header.catalogue-header .btn-outline-white:hover,
+.main-header.catalogue-header.scrolled .btn-outline-white:hover {
+  color: #080808;
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.main-header.catalogue-header .hamburger-trigger span,
+.main-header.catalogue-header.scrolled .hamburger-trigger span {
+  background-color: #fff;
+}
+
+.main-header.catalogue-header .hamburger-trigger.open span,
+.main-header.catalogue-header.scrolled .hamburger-trigger.open span {
+  background-color: #fff;
+}

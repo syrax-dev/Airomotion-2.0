@@ -1,0 +1,15 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "airomotion-client",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "cd '/home/syraxdev/Documents/AIROMOTION/AIROMOTION/Client' && npx vite --host 127.0.0.1 --port $PORT"],
+      "autoPort": true
+    },
+    {
+      "name": "upscayl-reference",
+      "url": "https://upscayl.org"
+    }
+  ]
+}

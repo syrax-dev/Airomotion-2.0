@@ -200,7 +200,7 @@ p {
 }
 
 .btn-download:hover .btn-download-icon {
-  transform: translateY(2px);
+  transform: translate(3px, -3px);
   opacity: 0.85;
 }
 

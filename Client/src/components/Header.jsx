@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
 import './Header.css';
 
 const Header = () => {
@@ -7,6 +8,7 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductsExpanded, setIsProductsExpanded] = useState(false);
   const location = useLocation();
+  const isCatalogue = location.pathname === '/catalogue';
 
   // Scroll event listener to add blur/transparency
   useEffect(() => {
@@ -28,8 +30,8 @@ const Header = () => {
     setIsProductsExpanded(false);
     document.body.classList.remove('menu-open');
     window.scrollTo({ top: 0, behavior: 'instant' });
-  // A product category changes only the query string.  It should not behave
-  // like a new page navigation or reset the visitor back to the page top.
+    // A product category changes only the query string.  It should not behave
+    // like a new page navigation or reset the visitor back to the page top.
   }, [location.pathname]);
 
   const toggleMobileMenu = () => {
@@ -55,7 +57,7 @@ const Header = () => {
 
   return (
     <>
-      <header className={`main-header ${isScrolled ? 'scrolled' : ''} ${location.pathname === '/about' ? 'about-header' : ''}`}>
+      <header className={`main-header ${isScrolled ? 'scrolled' : ''} ${location.pathname === '/about' ? 'about-header' : ''} ${isCatalogue ? 'catalogue-header' : ''}`}>
         <div className="header-container">
           {/* Brand mark changes with the header background. */}
           <Link
@@ -66,7 +68,7 @@ const Header = () => {
           >
             <img
               className="logo-image"
-              src={isScrolled ? '/airomotion_light.png' : '/airomotion_dark.png'}
+              src={isCatalogue ? '/airomotion_dark.png' : isScrolled ? '/airomotion_light.png' : '/airomotion_dark.png'}
               alt="AIROMOTION"
             />
           </Link>
@@ -76,14 +78,14 @@ const Header = () => {
             <div className="nav-item-container">
               <NavLink to="/" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Home</NavLink>
             </div>
-            
+
             <div className="nav-item-container">
               <NavLink to="/about" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>About</NavLink>
             </div>
 
             <div className="nav-item-container">
               <NavLink to="/products" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Products</NavLink>
-              
+
               {/* Mega-Dropdown Menu */}
               <div className="products-dropdown-wrapper">
                 <div>
@@ -127,25 +129,19 @@ const Header = () => {
           </nav>
 
           {/* Primary CTA Button (Desktop) */}
-          <a
-            href="/Airomotion.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            download
+          <Link
+            to="/catalogue"
             className="btn btn-outline-white btn-sm btn-download"
             style={{ padding: '0.6rem 1.5rem', fontSize: '0.75rem' }}
           >
-            E-CATALOGUE&nbsp;<span className="btn-download-icon" aria-hidden="true">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 3v12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M8 11l4 4 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M6 19h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+            E-CATALOGUE
+            <span className="btn-download-icon" aria-hidden="true">
+              <ArrowUpRight size={12} strokeWidth={2} />
             </span>
-          </a>
+          </Link>
 
           {/* Hamburger Menu Trigger (Mobile) */}
-          <button 
+          <button
             className={`hamburger-trigger ${isMobileMenuOpen ? 'open' : ''}`}
             onClick={toggleMobileMenu}
             aria-label="Toggle Menu"
@@ -160,8 +156,8 @@ const Header = () => {
       </header>
 
       {/* Mobile Drawer Overlay Menu */}
-      <div 
-        className={`mobile-menu-drawer ${isMobileMenuOpen ? 'open' : ''}`} 
+      <div
+        className={`mobile-menu-drawer ${isMobileMenuOpen ? 'open' : ''}`}
         id="mobile-navigation"
         aria-hidden={!isMobileMenuOpen}
       >
@@ -177,7 +173,7 @@ const Header = () => {
         <div className="mobile-nav-list">
           <Link to="/" className="mobile-nav-link">Home</Link>
           <Link to="/about" className="mobile-nav-link">About</Link>
-          
+
           {/* Mobile Accordion */}
           <div>
             <div className="mobile-nav-link mobile-accordion-header" onClick={toggleProductsAccordion}>
@@ -195,22 +191,36 @@ const Header = () => {
           <Link to="/contact" className="mobile-nav-link">Contact</Link>
         </div>
 
-        <a
-          href="/Airomotion.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          download
+        <Link
+          to="/catalogue"
           className="mobile-catalogue-button"
         >
-          Download E-Catalogue
+          View E-Catalogue
+
           <span className="btn-download-icon" aria-hidden="true">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 3v12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M8 11l4 4 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M6 19h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 12h14"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <path
+                d="M13 6l6 6-6 6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </span>
-        </a>
+        </Link>
 
         <div className="mobile-menu-footer">
           <div className="mobile-socials">

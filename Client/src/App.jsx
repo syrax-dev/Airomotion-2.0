@@ -1,43 +1,51 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import Header from './components/Header';
 import Footer from './components/Footer';
 import FloatingActions from './components/FloatingActions';
 import LoadingScreen from './components/LoadingScreen';
 import Seo from './components/Seo';
+
 import './App.css';
 
-// Lazy loading components for code splitting & performance optimization (Lighthouse 95+ target)
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Products = lazy(() => import('./pages/Products'));
 const Services = lazy(() => import('./pages/Services'));
 const Contact = lazy(() => import('./pages/Contact'));
+const Catalogue = lazy(() => import('./pages/Catalogue/Catalogue'));
 
 function App() {
+  const [showLoading, setShowLoading] = useState(true);
+
   return (
     <Router>
-      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#ffffff' }}>
+      <LoadingScreen
+        onComplete={() => setShowLoading(false)}
+      />
+
+      <div
+        className={showLoading ? 'app app--hidden' : 'app'}
+      >
         <Seo />
-        {/* Immersive navigation header */}
+
         <Header />
-        
-        {/* Main page content content area */}
-        <main style={{ flex: 1, position: 'relative' }}>
-          <Suspense fallback={<LoadingScreen />}>
+
+        <main>
+          <Suspense fallback={null}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/products" element={<Products />} />
               <Route path="/services" element={<Services />} />
               <Route path="/contact" element={<Contact />} />
-              {/* Fallback routing */}
+              <Route path="/catalogue" element={<Catalogue />} />
               <Route path="*" element={<Home />} />
             </Routes>
           </Suspense>
         </main>
-        
-        {/* Premium footer */}
+
         <Footer />
         <FloatingActions />
       </div>

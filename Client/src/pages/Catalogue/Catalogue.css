@@ -1,0 +1,123 @@
+/* =========================================================
+   CATALOGUE PAGE
+========================================================= */
+
+.catalogue-page {
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(255, 255, 255, 0.035),
+      transparent 42%
+    ),
+    #050505;
+
+  color: #fff;
+
+  padding:
+    130px
+    24px
+    80px;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.catalogue-page__content {
+  width: min(1400px, 100%);
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 42px;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.catalogue-page__heading {
+  text-align: center;
+
+  max-width: 720px;
+}
+
+
+.catalogue-page__eyebrow {
+  display: block;
+
+  margin-bottom: 16px;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.35em;
+
+  color: rgba(255, 255, 255, 0.45);
+}
+
+
+.catalogue-page__heading h1 {
+  margin: 0;
+
+  font-size: clamp(40px, 5vw, 64px);
+
+  font-weight: 500;
+
+  line-height: 1.05;
+
+  letter-spacing: -0.045em;
+}
+
+
+.catalogue-page__heading p {
+  margin:
+    18px
+    0
+    0;
+
+  font-size: 15px;
+
+  line-height: 1.6;
+
+  color: rgba(255, 255, 255, 0.5);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .catalogue-page {
+    padding:
+      100px
+      16px
+      50px;
+  }
+
+
+  .catalogue-page__content {
+    gap: 30px;
+  }
+
+
+  .catalogue-page__heading h1 {
+    font-size: 38px;
+  }
+
+
+  .catalogue-page__heading p {
+    font-size: 14px;
+  }
+
+}
