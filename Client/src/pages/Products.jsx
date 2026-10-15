@@ -18,11 +18,11 @@ import waterLeakSensorImage from '../assets/images/products/automation/sensors/W
 import smartGasDetectorImage from '../assets/images/products/automation/sensors/Smart_Gas_Detector.webp';
 import smokeDetectorImage from '../assets/images/products/automation/sensors/Smoke_Detector.webp';
 import hubControllerImage from '../assets/images/products/automation/hub/HUB_Controller.webp';
-import liteControllerImage from '../assets/images/products/automation/shading/Lite_Controller.webp';
-import deluxeControllerImage from '../assets/images/products/automation/shading/Deluxe_Controller.webp';
-import premiumControllerImage from '../assets/images/products/automation/shading/Premium_Controller.webp';
-import mechanicalLimitImage from '../assets/images/products/automation/shading/Mechanical_Limit.webp';
-import electronicLimitImage from '../assets/images/products/automation/shading/Electronic_Limit.webp';
+// import liteControllerImage from '../assets/images/products/automation/shading/Lite_Controller.webp';
+// import deluxeControllerImage from '../assets/images/products/automation/shading/Deluxe_Controller.webp';
+// import premiumControllerImage from '../assets/images/products/automation/shading/Premium_Controller.webp';
+// import mechanicalLimitImage from '../assets/images/products/automation/shading/Mechanical_Limit.webp';
+// import electronicLimitImage from '../assets/images/products/automation/shading/Electronic_Limit.webp';
 import handheldTransmitterImage from '../assets/images/products/automation/shading/Handheld_Transmitter.webp';
 import wallMountTransmitterImage from '../assets/images/products/automation/shading/Wall-Mount_Transmitter.webp';
 import premiumHandheldTransmitterImage from '../assets/images/products/automation/shading/Premium_Handheld_Transmitter.webp';
@@ -108,8 +108,8 @@ const productCategories = {
       { title: 'Hub', items: ['Smart Hub Controller'] },
       {
         title: 'Shading', items: [
-          { sub: 'Curtain Controller', items: ['Lite', 'Deluxe', 'Premium'] },
-          { sub: 'Roller Shade Controller', items: ['Mechanical Limit', 'Electronic Limit'] },
+          // { sub: 'Curtain Controller', items: ['Lite', 'Deluxe', 'Premium'] },
+          // { sub: 'Roller Shade Controller', items: ['Mechanical Limit', 'Electronic Limit'] },
           { sub: 'Remote', items: ['Handheld Transmitter', 'Wall Mount Transmitter', 'Premium Handheld Transmitter'] },
           { sub: 'Curtain Driver', items: ['Track Version', 'Rod Version'] },
           { sub: 'Roller Shade Driver', items: ['Windproof Exterior Blind', 'Skylight Blinds'] }
@@ -220,11 +220,11 @@ const automationHubImages = {
 };
 
 const automationShadingImages = {
-  'Lite': liteControllerImage,
-  'Deluxe': deluxeControllerImage,
-  'Premium': premiumControllerImage,
-  'Mechanical Limit': mechanicalLimitImage,
-  'Electronic Limit': electronicLimitImage,
+  // 'Lite': liteControllerImage,
+  // 'Deluxe': deluxeControllerImage,
+  // 'Premium': premiumControllerImage,
+  // 'Mechanical Limit': mechanicalLimitImage,
+  // 'Electronic Limit': electronicLimitImage,
   'Handheld Transmitter': handheldTransmitterImage,
   'Wall Mount Transmitter': wallMountTransmitterImage,
   'Premium Handheld Transmitter': premiumHandheldTransmitterImage,

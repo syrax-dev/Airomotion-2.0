@@ -170,7 +170,7 @@ const Contact = () => {
                 <div className="ct-info-block">
                   <span className="ct-info-label">Address</span>
                   <strong className="ct-info-value">
-                    LIMANI TECHNOLOGIES<br />
+                    AIROMOTION TECHNOLOGIES<br />
                     Gandhinagar, Gujarat India – 382610
                   </strong>
                 </div>
