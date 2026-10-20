@@ -5,10 +5,25 @@ import './Header.css';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHeroVisible, setIsHeroVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductsExpanded, setIsProductsExpanded] = useState(false);
   const location = useLocation();
   const isCatalogue = location.pathname === '/catalogue';
+
+  useEffect(() => {
+    const hero = document.querySelector('.hero-section');
+    if (!hero) {
+      setIsHeroVisible(false);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsHeroVisible(entry.isIntersecting);
+    });
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, [location.pathname]);
 
   // Scroll event listener to add blur/transparency
   useEffect(() => {
@@ -57,7 +72,7 @@ const Header = () => {
 
   return (
     <>
-      <header className={`main-header ${isScrolled ? 'scrolled' : ''} ${location.pathname === '/about' ? 'about-header' : ''} ${isCatalogue ? 'catalogue-header' : ''}`}>
+      <header className={`main-header ${isScrolled ? 'scrolled' : ''} ${isHeroVisible ? 'hero-visible' : ''} ${location.pathname === '/about' ? 'about-header' : ''} ${isCatalogue ? 'catalogue-header' : ''}`}>
         <div className="header-container">
           {/* Brand mark changes with the header background. */}
           <Link
@@ -68,7 +83,7 @@ const Header = () => {
           >
             <img
               className="logo-image"
-              src={isCatalogue ? '/airomotion_dark.png' : isScrolled ? '/airomotion_light.png' : '/airomotion_dark.png'}
+              src={isCatalogue ? '/airomotion_dark.png' : isScrolled && !isHeroVisible ? '/airomotion_light.png' : '/airomotion_dark.png'}
               alt="AIROMOTION"
             />
           </Link>

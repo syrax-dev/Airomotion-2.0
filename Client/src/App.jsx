@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import FloatingActions from './components/FloatingActions';
 import LoadingScreen from './components/LoadingScreen';
 import Seo from './components/Seo';
+import SmoothScroll from './components/SmoothScroll';
 
 import './App.css';
 
@@ -22,6 +23,7 @@ function App() {
 
   return (
     <Router>
+      <SmoothScroll />
       <LoadingScreen
         onComplete={() => setShowLoading(false)}
       />

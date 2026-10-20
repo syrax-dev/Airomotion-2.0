@@ -44,8 +44,6 @@
 }
 
 .floating-action--top {
-  width: 2.6rem;
-  height: 2.6rem;
   background: #0a0a0a;
   color: #fff;
   cursor: pointer;
@@ -55,8 +53,8 @@
 }
 
 .floating-action--top svg {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.65rem;
+  height: 1.65rem;
 }
 
 .floating-action--top.is-visible {
@@ -82,7 +80,7 @@
   }
 
   .floating-action--top {
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 3.15rem;
+    height: 3.15rem;
   }
 }
